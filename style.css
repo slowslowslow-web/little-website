@@ -7,58 +7,361 @@ html,
 body {
     margin: 0;
     padding: 0;
+
+    width: 100%;
     min-height: 100%;
 }
 
 body {
-    background: #07111c;
-    color: #e8edf2;
-    font-family: Georgia, "Times New Roman", serif;
+    min-height: 100vh;
+
+    /* HER PHOTO */
+    background-image:
+        linear-gradient(
+            rgba(18, 7, 25, 0.40),
+            rgba(18, 7, 25, 0.40)
+        ),
+        url("background.jpg");
+
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+
+    color: #e7a9df;
+
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+    overflow-x: hidden;
 }
+
+
+/* =========================
+   PAGE
+========================= */
 
 .page {
     min-height: 100vh;
+
     position: relative;
 
     display: flex;
-    flex-direction: column;
+
+    justify-content: center;
     align-items: center;
 
-    padding: 70px 25px 50px;
-
-    overflow: hidden;
+    padding: 100px 80px;
 }
 
-/* little 8 */
 
-.top-symbol {
+/* =========================
+   CENTER
+========================= */
+
+.center {
+    position: relative;
+    z-index: 5;
+
+    text-align: center;
+
+    padding: 35px 45px;
+
+    background: rgba(20, 5, 27, 0.14);
+
+    backdrop-filter: blur(2px);
+
+    border-radius: 5px;
+}
+
+
+/* =========================
+   10 / 10
+========================= */
+
+.date {
+    margin-bottom: 20px;
+
+    font-size: 11px;
+
+    letter-spacing: 5px;
+
+    color: #e9a8df;
+
+    opacity: 0.85;
+}
+
+
+/* =========================
+   BIRTHDAY MESSAGE
+========================= */
+
+h1 {
+    margin: 0;
+
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+    font-size: clamp(28px, 4vw, 45px);
+
+    font-weight: normal;
+
+    font-style: italic;
+
+    letter-spacing: 1px;
+
+    color: #f0b4e6;
+
+    text-shadow:
+        0 1px 12px rgba(70, 0, 80, 0.6);
+}
+
+
+/* =========================
+   INFINITY
+========================= */
+
+.infinity {
+    margin-top: 17px;
+
+    font-size: 25px;
+
+    color: #d98bd0;
+
+    opacity: 0.7;
+}
+
+
+/* =========================
+   MUSIC
+========================= */
+
+.music {
+    width: min(360px, 70vw);
+
+    margin-top: 42px;
+}
+
+.song {
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    margin-bottom: 14px;
+}
+
+.song span {
+    width: 20px;
+
+    font-size: 9px;
+
+    letter-spacing: 1px;
+
+    color: #e4a5dc;
+
+    opacity: 0.65;
+}
+
+audio {
+    width: 100%;
+
+    height: 30px;
+
+    opacity: 0.72;
+}
+
+
+/* =========================
+   SYMBOLS
+========================= */
+
+.symbol {
     position: absolute;
-    top: 28px;
-    left: 35px;
 
-    font-size: 14px;
-    opacity: 0.45;
+    z-index: 10;
+
+    color: #d99bd4;
+
+    opacity: 0.75;
+
+    text-shadow:
+        0 0 10px rgba(160, 50, 150, 0.5);
 }
 
-/* Neptune */
+.eight {
+    top: 32px;
+    left: 45px;
+
+    font-size: 15px;
+}
 
 .neptune {
-    position: absolute;
-    top: 45px;
-    right: 45px;
+    top: 35px;
+    right: 48px;
 
     font-size: 22px;
-    opacity: 0.5;
 }
 
-/* artwork */
 
-.artwork {
-    width: 240px;
-    height: 240px;
+/* =========================
+   USERNAME
+========================= */
 
-    object-fit: cover;
+.username {
+    position: absolute;
 
-    margin-top: 40px;
-    margin-b
+    z-index: 10;
+
+    bottom: 27px;
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    font-size: 9px;
+
+    letter-spacing: 4px;
+
+    color: #dfa4d9;
+
+    opacity: 0.55;
+}
+
+
+/* =========================
+   RUG BORDER
+========================= */
+
+.rug {
+    position: fixed;
+
+    z-index: 20;
+
+    pointer-events: none;
+
+    /* YOUR RUG IMAGE */
+    background-image: url("rug.jpg");
+
+    background-repeat: repeat;
+
+    image-rendering: pixelated;
+}
+
+
+/* TOP */
+
+.rug.top {
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 55px;
+
+    background-size: auto 55px;
+}
+
+
+/* BOTTOM */
+
+.rug.bottom {
+    bottom: 0;
+    left: 0;
+
+    width: 100%;
+    height: 55px;
+
+    background-size: auto 55px;
+
+    transform: rotate(180deg);
+}
+
+
+/* LEFT */
+
+.rug.left {
+    top: 55px;
+    bottom: 55px;
+
+    left: 0;
+
+    width: 55px;
+
+    background-size: 55px auto;
+}
+
+
+/* RIGHT */
+
+.rug.right {
+    top: 55px;
+    bottom: 55px;
+
+    right: 0;
+
+    width: 55px;
+
+    background-size: 55px auto;
+
+    transform: rotate(180deg);
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 600px) {
+
+    .page {
+        padding: 80px 65px;
+    }
+
+    .center {
+        padding: 25px 18px;
+    }
+
+    h1 {
+        font-size: 27px;
+    }
+
+    .music {
+        width: 250px;
+        max-width: 65vw;
+    }
+
+    .rug.top,
+    .rug.bottom {
+        height: 42px;
+
+        background-size: auto 42px;
+    }
+
+    .rug.left,
+    .rug.right {
+        top: 42px;
+        bottom: 42px;
+
+        width: 42px;
+
+        background-size: 42px auto;
+    }
+
+    .eight {
+        top: 55px;
+        left: 65px;
+    }
+
+    .neptune {
+        top: 55px;
+        right: 65px;
+    }
+
+    .username {
+        bottom: 55px;
+    }
+}
 ```

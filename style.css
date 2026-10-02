@@ -15,7 +15,6 @@ body {
 body {
     min-height: 100vh;
 
-    /* HER PHOTO */
     background-image:
         linear-gradient(
             rgba(18, 7, 25, 0.40),
@@ -57,7 +56,7 @@ body {
 
 
 /* =========================
-   CENTER
+   MAIN CENTER
 ========================= */
 
 .center {
@@ -77,7 +76,7 @@ body {
 
 
 /* =========================
-   10 / 10
+   TEXT
 ========================= */
 
 .date {
@@ -93,17 +92,8 @@ body {
 }
 
 
-/* =========================
-   BIRTHDAY MESSAGE
-========================= */
-
 h1 {
     margin: 0;
-
-    font-family:
-        Georgia,
-        "Times New Roman",
-        serif;
 
     font-size: clamp(28px, 4vw, 45px);
 
@@ -119,10 +109,6 @@ h1 {
         0 1px 12px rgba(70, 0, 80, 0.6);
 }
 
-
-/* =========================
-   INFINITY
-========================= */
 
 .infinity {
     margin-top: 17px;
@@ -209,6 +195,169 @@ audio {
 
 
 /* =========================
+   CLICKABLE OBJECTS
+========================= */
+
+.floating-object {
+    position: absolute;
+
+    z-index: 15;
+
+    text-decoration: none;
+
+    color: #e5a5dd;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    gap: 7px;
+
+    transition:
+        transform 0.25s ease,
+        opacity 0.25s ease;
+}
+
+.floating-object span {
+    font-family:
+        Georgia,
+        serif;
+
+    font-size: 9px;
+
+    letter-spacing: 2px;
+
+    opacity: 0;
+
+    transition: opacity 0.25s ease;
+}
+
+.floating-object:hover {
+    transform: translateY(-5px);
+
+    cursor: pointer;
+}
+
+.floating-object:hover span {
+    opacity: 0.8;
+}
+
+
+/* =========================
+   CAMERA
+========================= */
+
+.album {
+    left: 14%;
+    top: 31%;
+}
+
+.pixel-camera {
+    width: 42px;
+    height: 30px;
+
+    background: rgba(28, 8, 35, 0.75);
+
+    border: 2px solid #dfa4d9;
+
+    position: relative;
+}
+
+.pixel-camera::before {
+    content: "";
+
+    position: absolute;
+
+    width: 13px;
+    height: 5px;
+
+    left: 5px;
+    top: -7px;
+
+    background: #dfa4d9;
+}
+
+.camera-lens {
+    position: absolute;
+
+    width: 14px;
+    height: 14px;
+
+    left: 12px;
+    top: 6px;
+
+    border: 2px solid #dfa4d9;
+
+    border-radius: 50%;
+}
+
+
+/* =========================
+   NOTE
+========================= */
+
+.note {
+    right: 14%;
+    top: 34%;
+}
+
+.pixel-note {
+    width: 34px;
+    height: 40px;
+
+    padding: 9px 6px;
+
+    background: rgba(245, 202, 237, 0.18);
+
+    border: 2px solid #dfa4d9;
+
+    transform: rotate(-5deg);
+}
+
+.pixel-note div {
+    height: 2px;
+
+    margin-bottom: 5px;
+
+    background: #dfa4d9;
+
+    opacity: 0.7;
+}
+
+
+/* =========================
+   SECRET 8
+========================= */
+
+.secret {
+    left: 50%;
+
+    bottom: 16%;
+
+    transform: translateX(-50%);
+}
+
+.secret:hover {
+    transform:
+        translateX(-50%)
+        translateY(-5px);
+}
+
+.pixel-eight {
+    font-size: 32px;
+
+    font-family: Georgia, serif;
+
+    color: #dfa4d9;
+
+    text-shadow:
+        0 0 12px rgba(190, 70, 180, 0.7);
+}
+
+
+/* =========================
    USERNAME
 ========================= */
 
@@ -243,16 +392,12 @@ audio {
 
     pointer-events: none;
 
-    /* YOUR RUG IMAGE */
     background-image: url("rug.jpg");
 
     background-repeat: repeat;
 
     image-rendering: pixelated;
 }
-
-
-/* TOP */
 
 .rug.top {
     top: 0;
@@ -263,9 +408,6 @@ audio {
 
     background-size: auto 55px;
 }
-
-
-/* BOTTOM */
 
 .rug.bottom {
     bottom: 0;
@@ -279,9 +421,6 @@ audio {
     transform: rotate(180deg);
 }
 
-
-/* LEFT */
-
 .rug.left {
     top: 55px;
     bottom: 55px;
@@ -292,9 +431,6 @@ audio {
 
     background-size: 55px auto;
 }
-
-
-/* RIGHT */
 
 .rug.right {
     top: 55px;
@@ -348,6 +484,20 @@ audio {
         width: 42px;
 
         background-size: 42px auto;
+    }
+
+    .album {
+        left: 17%;
+        top: 24%;
+    }
+
+    .note {
+        right: 17%;
+        top: 27%;
+    }
+
+    .secret {
+        bottom: 13%;
     }
 
     .eight {

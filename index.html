@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>for you</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="noise"></div>
+  <div class="stars"></div>
+  <div class="orb orb-a"></div>
+  <div class="orb orb-b"></div>
+
+  <main>
+    <section id="landing" class="screen active">
+      <div class="intro">
+        <p class="eyebrow">a little something</p>
+        <h1>i made something<br><em>for you.</em></h1>
+        <p class="hint">take your time.</p>
+        <button id="enterBtn" class="ghost-btn">enter</button>
+      </div>
+    </section>
+
+    <section id="world" class="screen">
+      <div class="world-inner">
+        <p class="eyebrow">welcome</p>
+        <h2>there's something<br>here for you.</h2>
+
+        <button id="artButton" class="art-button" aria-label="Open the song">
+          <div class="art-placeholder">
+            <span>YOUR<br>ARTWORK</span>
+          </div>
+          <div class="play-icon">▶</div>
+        </button>
+
+        <p class="micro">click the artwork</p>
+
+        <div id="player" class="player hidden">
+          <div class="track-meta">
+            <span class="track-title">YOUR SONG TITLE</span>
+            <span class="track-subtitle">made for you</span>
+          </div>
+          <audio id="audio" src="song.mp3"></audio>
+          <div class="controls">
+            <button id="playBtn" class="circle-btn">▶</button>
+            <div class="progress-wrap">
+              <div class="progress"><div id="progressBar"></div></div>
+              <div class="time"><span id="currentTime">0:00</span><span id="duration">0:00</span></div>
+            </div>
+          </div>
+        </div>
+
+        <button id="letterBtn" class="text-btn hidden">there's one more thing →</button>
+      </div>
+    </section>
+
+    <section id="letter" class="screen">
+      <div class="letter-wrap">
+        <p class="eyebrow">a letter</p>
+        <div class="letter">
+          <p>hey.</p>
+          <p>I wanted to give you something that couldn't really exist in a store, so I made this instead.</p>
+          <p>WRITE YOUR LETTER HERE.</p>
+          <p>Nothing too complicated. I just wanted you to know that I appreciate you, and that you inspired something I wanted to make.</p>
+          <p>that's all.</p>
+          <p class="signature">— YOUR NAME</p>
+        </div>
+        <button id="finalBtn" class="text-btn">one last thing →</button>
+      </div>
+    </section>
+
+    <section id="final" class="screen">
+      <div class="final-inner">
+        <p class="eyebrow">that's it</p>
+        <h2>I just wanted you<br>to have something<br>that only exists<br><em>because you do.</em></h2>
+        <p class="final-small">♡</p>
+      </div>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

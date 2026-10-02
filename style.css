@@ -1,0 +1,112 @@
+:root {
+  --bg: #07070a;
+  --text: #f1eee8;
+  --muted: #96939b;
+  --line: rgba(255,255,255,.16);
+  --accent: #d9c9ff;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; width: 100%; min-height: 100%; background: var(--bg); color: var(--text); }
+body {
+  font-family: Inter, sans-serif;
+  overflow-x: hidden;
+  font-weight: 300;
+}
+button { font: inherit; color: inherit; }
+.noise {
+  position: fixed; inset: 0; pointer-events: none; z-index: 20; opacity: .045;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.8'/%3E%3C/svg%3E");
+}
+.stars {
+  position: fixed; inset: 0; opacity: .45; pointer-events: none;
+  background-image: radial-gradient(circle, rgba(255,255,255,.8) 1px, transparent 1px);
+  background-size: 83px 83px;
+  animation: drift 35s linear infinite;
+}
+.orb {
+  position: fixed; border-radius: 50%; filter: blur(90px); opacity: .12;
+  pointer-events: none;
+}
+.orb-a { width: 40vw; height: 40vw; top: 5%; left: -15%; background: #8e72ff; }
+.orb-b { width: 35vw; height: 35vw; bottom: -10%; right: -10%; background: #e0a9ff; }
+
+.screen {
+  min-height: 100vh; width: 100%; display: none; place-items: center;
+  padding: 32px 22px; position: relative; z-index: 2;
+}
+.screen.active { display: grid; animation: fadeIn 1.2s ease both; }
+
+.intro, .world-inner, .letter-wrap, .final-inner { width: min(680px, 100%); text-align: center; }
+.eyebrow {
+  font-family: "DM Mono", monospace; text-transform: lowercase;
+  letter-spacing: .12em; font-size: 11px; color: var(--muted); margin: 0 0 28px;
+}
+h1, h2 { font-weight: 300; letter-spacing: -.045em; line-height: .98; margin: 0; }
+h1 { font-size: clamp(52px, 10vw, 105px); }
+h2 { font-size: clamp(44px, 8vw, 82px); }
+em { font-style: normal; color: var(--accent); }
+.hint { color: var(--muted); margin: 28px 0 32px; font-size: 13px; }
+
+.ghost-btn, .text-btn {
+  background: transparent; border: 1px solid var(--line); cursor: pointer;
+  padding: 12px 20px; transition: .3s ease; font-size: 12px;
+  letter-spacing: .08em; text-transform: lowercase;
+}
+.ghost-btn:hover, .text-btn:hover { border-color: rgba(255,255,255,.5); transform: translateY(-2px); }
+
+.art-button {
+  width: min(330px, 72vw); aspect-ratio: 1; margin: 55px auto 12px;
+  border: 0; padding: 0; background: none; cursor: pointer; position: relative;
+  display: block;
+}
+.art-placeholder {
+  width: 100%; height: 100%; display: grid; place-items: center;
+  background: linear-gradient(135deg, #17151e, #09090d);
+  border: 1px solid rgba(255,255,255,.12);
+  box-shadow: 0 30px 100px rgba(0,0,0,.5);
+  transition: .6s ease;
+}
+.art-placeholder span {
+  font-family: "DM Mono", monospace; font-size: 12px; letter-spacing: .15em;
+  color: rgba(255,255,255,.35);
+}
+.art-button:hover .art-placeholder { transform: scale(1.025); border-color: rgba(255,255,255,.3); }
+.play-icon {
+  position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%);
+  width: 58px; height: 58px; border-radius: 50%; display: grid; place-items: center;
+  background: rgba(0,0,0,.55); backdrop-filter: blur(10px);
+  font-size: 13px; padding-left: 2px; opacity: .85;
+}
+.micro { font-family: "DM Mono", monospace; font-size: 10px; color: #66636b; }
+
+.player { width: min(520px, 100%); margin: 35px auto 0; text-align: left; }
+.hidden { display: none !important; }
+.track-meta { margin-bottom: 16px; }
+.track-title { display: block; font-size: 14px; letter-spacing: .05em; }
+.track-subtitle { display: block; font-size: 11px; color: var(--muted); margin-top: 5px; }
+.controls { display: flex; gap: 15px; align-items: center; }
+.circle-btn {
+  flex: 0 0 40px; width: 40px; height: 40px; border-radius: 50%;
+  border: 1px solid var(--line); background: transparent; cursor: pointer; font-size: 11px;
+}
+.progress-wrap { flex: 1; }
+.progress { height: 2px; background: rgba(255,255,255,.12); cursor: pointer; }
+.progress div { height: 100%; width: 0%; background: var(--text); }
+.time { display: flex; justify-content: space-between; margin-top: 7px; color: #65626a; font: 9px "DM Mono", monospace; }
+#letterBtn { margin-top: 42px; }
+
+.letter { max-width: 560px; margin: 20px auto 35px; text-align: left; line-height: 1.85; font-size: 15px; color: #d8d4d0; }
+.letter p { margin: 0 0 24px; }
+.signature { color: var(--accent); font-style: italic; }
+
+.final-small { margin-top: 45px; color: var(--accent); animation: pulse 2.5s ease-in-out infinite; }
+
+@keyframes fadeIn { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes drift { from { transform: translate(0,0); } 50% { transform: translate(18px,12px); } to { transform: translate(0,0); } }
+@keyframes pulse { 50% { opacity: .3; transform: scale(1.1); } }
+
+@media (max-width: 600px) {
+  .screen { padding: 24px 18px; }
+  .letter { font-size: 14px; }
+}

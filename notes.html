@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 
@@ -17,6 +16,12 @@
 
 
 <body>
+
+    <!-- SONG 2 -->
+    <audio id="pageMusic" autoplay preload="auto" hidden>
+        <source src="song2.mp3" type="audio/mpeg">
+    </audio>
+
 
     <!-- THIN RUG BORDER -->
 
@@ -46,24 +51,6 @@
             </div>
 
 
-            <!-- SONG 2 -->
-
-            <div class="page-music">
-
-                <div class="track-label">
-                    02
-                </div>
-
-                <audio controls>
-
-                    <source src="song2.mp3"
-                            type="audio/mpeg">
-
-                </audio>
-
-            </div>
-
-
             <a href="index.html"
                class="back">
 
@@ -75,7 +62,26 @@
 
     </main>
 
+
+    <!-- AUTOPLAY FALLBACK -->
+
+    <script>
+
+        const music =
+            document.getElementById("pageMusic");
+
+        music.play().catch(() => {});
+
+        document.addEventListener("click", () => {
+
+            if (music.paused) {
+                music.play().catch(() => {});
+            }
+
+        }, { once: true });
+
+    </script>
+
 </body>
 
 </html>
-```

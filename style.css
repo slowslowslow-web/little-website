@@ -3,6 +3,7 @@
     box-sizing: border-box;
 }
 
+
 html,
 body {
     margin: 0;
@@ -12,7 +13,9 @@ body {
     min-height: 100%;
 }
 
+
 body {
+
     min-height: 100vh;
 
     background-image:
@@ -42,6 +45,7 @@ body {
 ========================= */
 
 .page {
+
     min-height: 100vh;
 
     position: relative;
@@ -51,16 +55,18 @@ body {
     justify-content: center;
     align-items: center;
 
-    padding: 100px 80px;
+    padding: 60px 35px;
 }
 
 
 /* =========================
-   MAIN CENTER
+   CENTER
 ========================= */
 
 .center {
+
     position: relative;
+
     z-index: 5;
 
     text-align: center;
@@ -80,6 +86,7 @@ body {
 ========================= */
 
 .date {
+
     margin-bottom: 20px;
 
     font-size: 11px;
@@ -93,6 +100,7 @@ body {
 
 
 h1 {
+
     margin: 0;
 
     font-size: clamp(28px, 4vw, 45px);
@@ -111,6 +119,7 @@ h1 {
 
 
 .infinity {
+
     margin-top: 17px;
 
     font-size: 25px;
@@ -122,51 +131,11 @@ h1 {
 
 
 /* =========================
-   MUSIC
-========================= */
-
-.music {
-    width: min(360px, 70vw);
-
-    margin-top: 42px;
-}
-
-.song {
-    display: flex;
-
-    align-items: center;
-
-    gap: 12px;
-
-    margin-bottom: 14px;
-}
-
-.song span {
-    width: 20px;
-
-    font-size: 9px;
-
-    letter-spacing: 1px;
-
-    color: #e4a5dc;
-
-    opacity: 0.65;
-}
-
-audio {
-    width: 100%;
-
-    height: 30px;
-
-    opacity: 0.72;
-}
-
-
-/* =========================
    SYMBOLS
 ========================= */
 
 .symbol {
+
     position: absolute;
 
     z-index: 10;
@@ -179,16 +148,20 @@ audio {
         0 0 10px rgba(160, 50, 150, 0.5);
 }
 
+
 .eight {
-    top: 32px;
-    left: 45px;
+
+    top: 25px;
+    left: 32px;
 
     font-size: 15px;
 }
 
+
 .neptune {
-    top: 35px;
-    right: 48px;
+
+    top: 27px;
+    right: 34px;
 
     font-size: 22px;
 }
@@ -199,6 +172,7 @@ audio {
 ========================= */
 
 .floating-object {
+
     position: absolute;
 
     z-index: 15;
@@ -220,10 +194,8 @@ audio {
         opacity 0.25s ease;
 }
 
+
 .floating-object span {
-    font-family:
-        Georgia,
-        serif;
 
     font-size: 9px;
 
@@ -234,13 +206,17 @@ audio {
     transition: opacity 0.25s ease;
 }
 
+
 .floating-object:hover {
+
     transform: translateY(-5px);
 
     cursor: pointer;
 }
 
+
 .floating-object:hover span {
+
     opacity: 0.8;
 }
 
@@ -250,11 +226,14 @@ audio {
 ========================= */
 
 .album {
+
     left: 14%;
-    top: 31%;
+    top: 40%;
 }
 
+
 .pixel-camera {
+
     width: 42px;
     height: 30px;
 
@@ -265,7 +244,9 @@ audio {
     position: relative;
 }
 
+
 .pixel-camera::before {
+
     content: "";
 
     position: absolute;
@@ -279,7 +260,9 @@ audio {
     background: #dfa4d9;
 }
 
+
 .camera-lens {
+
     position: absolute;
 
     width: 14px;
@@ -295,15 +278,18 @@ audio {
 
 
 /* =========================
-   NOTE
+   NOTE ICON
 ========================= */
 
 .note {
+
     right: 14%;
-    top: 34%;
+    top: 40%;
 }
 
+
 .pixel-note {
+
     width: 34px;
     height: 40px;
 
@@ -316,7 +302,9 @@ audio {
     transform: rotate(-5deg);
 }
 
+
 .pixel-note div {
+
     height: 2px;
 
     margin-bottom: 5px;
@@ -328,27 +316,30 @@ audio {
 
 
 /* =========================
-   SECRET 8
+   SECRET
 ========================= */
 
 .secret {
+
     left: 50%;
 
-    bottom: 16%;
+    bottom: 13%;
 
     transform: translateX(-50%);
 }
 
+
 .secret:hover {
+
     transform:
         translateX(-50%)
         translateY(-5px);
 }
 
-.pixel-eight {
-    font-size: 32px;
 
-    font-family: Georgia, serif;
+.pixel-eight {
+
+    font-size: 32px;
 
     color: #dfa4d9;
 
@@ -362,11 +353,12 @@ audio {
 ========================= */
 
 .username {
+
     position: absolute;
 
     z-index: 10;
 
-    bottom: 27px;
+    bottom: 20px;
     left: 50%;
 
     transform: translateX(-50%);
@@ -382,10 +374,11 @@ audio {
 
 
 /* =========================
-   RUG BORDER
+   THIN RUG
 ========================= */
 
 .rug {
+
     position: fixed;
 
     z-index: 20;
@@ -399,50 +392,219 @@ audio {
     image-rendering: pixelated;
 }
 
+
 .rug.top {
+
     top: 0;
     left: 0;
 
     width: 100%;
-    height: 55px;
+    height: 25px;
 
-    background-size: auto 55px;
+    background-size: auto 25px;
 }
 
+
 .rug.bottom {
+
     bottom: 0;
     left: 0;
 
     width: 100%;
-    height: 55px;
+    height: 25px;
 
-    background-size: auto 55px;
+    background-size: auto 25px;
 
     transform: rotate(180deg);
 }
 
+
 .rug.left {
-    top: 55px;
-    bottom: 55px;
+
+    top: 25px;
+    bottom: 25px;
 
     left: 0;
 
-    width: 55px;
+    width: 25px;
 
-    background-size: 55px auto;
+    background-size: 25px auto;
 }
 
+
 .rug.right {
-    top: 55px;
-    bottom: 55px;
+
+    top: 25px;
+    bottom: 25px;
 
     right: 0;
 
-    width: 55px;
+    width: 25px;
 
-    background-size: 55px auto;
+    background-size: 25px auto;
 
     transform: rotate(180deg);
+}
+
+
+/* =========================
+   GALLERY / NOTE PAGES
+========================= */
+
+.gallery-page,
+.note-page {
+
+    min-width: min(550px, 80vw);
+
+    padding: 35px;
+}
+
+
+/* =========================
+   PHOTO PLACEHOLDER
+========================= */
+
+.photo-placeholder {
+
+    width: min(420px, 65vw);
+
+    height: min(300px, 45vw);
+
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    margin: 15px auto;
+
+    border: 2px dashed rgba(223, 164, 217, 0.6);
+
+    background: rgba(20, 5, 27, 0.25);
+
+    color: #dfa4d9;
+
+    font-size: 12px;
+
+    letter-spacing: 4px;
+}
+
+
+.photo-number {
+
+    margin-top: 12px;
+
+    font-size: 9px;
+
+    letter-spacing: 3px;
+
+    opacity: 0.65;
+}
+
+
+/* =========================
+   NOTE PAPER
+========================= */
+
+.note-paper {
+
+    width: min(420px, 65vw);
+
+    min-height: 250px;
+
+    margin: 20px auto;
+
+    padding: 40px;
+
+    background: rgba(245, 220, 239, 0.13);
+
+    border: 1px solid rgba(223, 164, 217, 0.55);
+
+    transform: rotate(-1deg);
+
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+}
+
+
+.note-paper p {
+
+    margin: 0;
+
+    color: #f0b4e6;
+
+    font-style: italic;
+
+    font-size: 18px;
+}
+
+
+/* =========================
+   PAGE MUSIC
+========================= */
+
+.page-music {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    width: min(380px, 65vw);
+
+    margin: 30px auto 20px;
+}
+
+
+.track-label {
+
+    font-size: 9px;
+
+    letter-spacing: 2px;
+
+    opacity: 0.65;
+}
+
+
+.page-music audio {
+
+    width: 100%;
+
+    height: 32px;
+
+    opacity: 0.8;
+}
+
+
+/* =========================
+   BACK BUTTON
+========================= */
+
+.back {
+
+    display: inline-block;
+
+    margin-top: 15px;
+
+    color: #dfa4d9;
+
+    text-decoration: none;
+
+    font-size: 10px;
+
+    letter-spacing: 2px;
+
+    opacity: 0.7;
+
+    transition: opacity 0.2s ease;
+}
+
+
+.back:hover {
+
+    opacity: 1;
 }
 
 
@@ -453,65 +615,86 @@ audio {
 @media (max-width: 600px) {
 
     .page {
-        padding: 80px 65px;
+
+        padding: 55px 35px;
     }
 
+
     .center {
+
         padding: 25px 18px;
     }
 
+
     h1 {
+
         font-size: 27px;
     }
 
-    .music {
-        width: 250px;
-        max-width: 65vw;
-    }
 
     .rug.top,
     .rug.bottom {
-        height: 42px;
 
-        background-size: auto 42px;
+        height: 20px;
+
+        background-size: auto 20px;
     }
+
 
     .rug.left,
     .rug.right {
-        top: 42px;
-        bottom: 42px;
 
-        width: 42px;
+        top: 20px;
+        bottom: 20px;
 
-        background-size: 42px auto;
+        width: 20px;
+
+        background-size: 20px auto;
     }
+
 
     .album {
-        left: 17%;
-        top: 24%;
+
+        left: 13%;
+        top: 32%;
     }
+
 
     .note {
-        right: 17%;
-        top: 27%;
+
+        right: 13%;
+        top: 32%;
     }
+
 
     .secret {
-        bottom: 13%;
+
+        bottom: 12%;
     }
 
-    .eight {
-        top: 55px;
-        left: 65px;
+
+    .gallery-page,
+    .note-page {
+
+        min-width: 0;
+
+        width: 85vw;
+
+        padding: 25px 15px;
     }
 
-    .neptune {
-        top: 55px;
-        right: 65px;
+
+    .photo-placeholder,
+    .note-paper {
+
+        width: 70vw;
     }
 
-    .username {
-        bottom: 55px;
+
+    .page-music {
+
+        width: 70vw;
     }
+
 }
 ```

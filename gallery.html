@@ -3,19 +3,20 @@
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>8</title>
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>gallery</title>
+
     <link rel="stylesheet" href="style.css">
+
 </head>
 
+
 <body>
-
-    <!-- HOME BACKGROUND MUSIC ONLY -->
-    <audio id="backgroundMusic" autoplay loop>
-        <source src="background.mp3" type="audio/mpeg">
-    </audio>
-
 
     <!-- THIN RUG BORDER -->
 
@@ -27,94 +28,53 @@
 
     <main class="page">
 
-        <!-- SMALL SYMBOLS -->
-
-        <div class="symbol eight">8</div>
-
-        <div class="symbol neptune">♆</div>
-
-
-        <!-- GALLERY -->
-
-        <a href="gallery.html" class="floating-object album">
-
-            <div class="pixel-camera">
-                <div class="camera-lens"></div>
-            </div>
-
-            <span>open</span>
-
-        </a>
-
-
-        <!-- NOTES -->
-
-        <a href="notes.html" class="floating-object note">
-
-            <div class="pixel-note">
-                <div></div>
-                <div></div>
-                <div></div>
-            </div>
-
-            <span>open</span>
-
-        </a>
-
-
-        <!-- SECRET -->
-
-        <a href="secret.html" class="floating-object secret">
-
-            <div class="pixel-eight">8</div>
-
-            <span>...</span>
-
-        </a>
-
-
-        <!-- CENTER -->
-
-        <section class="center">
+        <section class="center gallery-page">
 
             <div class="date">
-                10 / 10
+                gallery
             </div>
 
-            <h1>
-                happy birthday :)
-            </h1>
 
-            <div class="infinity">
-                ∞
+            <!-- PHOTO PLACEHOLDER -->
+
+            <div class="photo-placeholder">
+                PHOTO
             </div>
+
+
+            <div class="photo-number">
+                01 / 01
+            </div>
+
+
+            <!-- SONG 1 -->
+
+            <div class="page-music">
+
+                <div class="track-label">
+                    01
+                </div>
+
+                <audio controls>
+
+                    <source src="song1.mp3"
+                            type="audio/mpeg">
+
+                </audio>
+
+            </div>
+
+
+            <a href="index.html"
+               class="back">
+
+                ← back
+
+            </a>
 
         </section>
 
-
-        <div class="username">
-            missmollysan
-        </div>
-
     </main>
-
-
-    <!-- AUTOPLAY FALLBACK -->
-
-    <script>
-
-        const music =
-            document.getElementById("backgroundMusic");
-
-        document.addEventListener("click", () => {
-
-            if (music.paused) {
-                music.play().catch(() => {});
-            }
-
-        }, { once: true });
-
-    </script>
 
 </body>
 

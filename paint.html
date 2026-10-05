@@ -99,18 +99,194 @@
     </main>
 
 
-    <!-- LOAD OUR DOODLE INTO JS PAINT -->
+    <!-- LOAD THE DRAWING DIRECTLY INTO JS PAINT -->
 
     <script>
 
-        const paintFrame =
-            document.getElementById("paintFrame");
+        const svg = `
+<svg xmlns="http://www.w3.org/2000/svg"
+     width="800"
+     height="600"
+     viewBox="0 0 800 600">
 
-        const doodle =
-            new URL("doodle.svg", window.location.href).href;
+    <rect width="800" height="600" fill="white"/>
 
-        paintFrame.src =
-            "https://jspaint.app#load:" + doodle;
+
+    <!-- little stars + cloud -->
+
+    <text x="145" y="120"
+          font-family="Arial"
+          font-size="30"
+          fill="#777777">✦</text>
+
+    <text x="625" y="115"
+          font-family="Arial"
+          font-size="28"
+          fill="#999999">☁</text>
+
+
+    <!-- imperfect ground line -->
+
+    <path d="M170 180
+             C280 176, 390 183, 505 179
+             C565 177, 610 181, 640 179"
+          fill="none"
+          stroke="#777777"
+          stroke-width="4"/>
+
+
+    <!-- LEFT PERSON -->
+
+    <circle cx="265"
+            cy="205"
+            r="38"
+            fill="#f4c7d8"
+            stroke="#333333"
+            stroke-width="5"/>
+
+    <path d="M250 285
+             L225 245
+             L235 205
+             L265 190
+             L295 205
+             L305 245
+             L280 285"
+          fill="none"
+          stroke="#333333"
+          stroke-width="6"
+          stroke-linejoin="round"/>
+
+    <circle cx="252"
+            cy="202"
+            r="4"
+            fill="#333333"/>
+
+    <circle cx="278"
+            cy="202"
+            r="4"
+            fill="#333333"/>
+
+    <path d="M255 218
+             Q265 227 275 218"
+          fill="none"
+          stroke="#333333"
+          stroke-width="4"
+          stroke-linecap="round"/>
+
+
+    <!-- RIGHT PERSON -->
+
+    <circle cx="525"
+            cy="205"
+            r="38"
+            fill="#d7b8ee"
+            stroke="#333333"
+            stroke-width="5"/>
+
+    <path d="M510 285
+             L485 245
+             L495 205
+             L525 190
+             L555 205
+             L565 245
+             L540 285"
+          fill="none"
+          stroke="#333333"
+          stroke-width="6"
+          stroke-linejoin="round"/>
+
+    <circle cx="512"
+            cy="202"
+            r="4"
+            fill="#333333"/>
+
+    <circle cx="538"
+            cy="202"
+            r="4"
+            fill="#333333"/>
+
+    <path d="M515 218
+             Q525 227 535 218"
+          fill="none"
+          stroke="#333333"
+          stroke-width="4"
+          stroke-linecap="round"/>
+
+
+    <!-- HEART -->
+
+    <path d="M395 305
+             C375 280, 340 310, 395 350
+             C450 310, 415 280, 395 305 Z"
+          fill="#ef668d"
+          stroke="#333333"
+          stroke-width="4"/>
+
+
+    <!-- 8 -->
+
+    <text x="375"
+          y="400"
+          font-family="Georgia, serif"
+          font-size="34"
+          fill="#8e55b8">8</text>
+
+
+    <!-- MESSAGE -->
+
+    <text x="400"
+          y="475"
+          text-anchor="middle"
+          font-family="Comic Sans MS, Comic Sans, cursive"
+          font-size="32">
+
+        <tspan fill="#8e55b8">happy </tspan>
+        <tspan fill="#e56bb5">birthday </tspan>
+        <tspan fill="#e34b62">missmollysan</tspan>
+
+    </text>
+
+
+    <!-- HASHTAG -->
+
+    <text x="400"
+          y="520"
+          text-anchor="middle"
+          font-family="Comic Sans MS, Comic Sans, cursive"
+          font-size="27">
+
+        <tspan fill="#65704a">#</tspan>
+        <tspan fill="#111111">blackpunkkkk</tspan>
+
+    </text>
+
+</svg>
+`;
+
+
+        /*
+            Convert the SVG into a self-contained
+            data URL.
+
+            This means JS Paint doesn't need to
+            download doodle.svg from GitHub.
+        */
+
+        const encodedSVG =
+            btoa(
+                unescape(
+                    encodeURIComponent(svg)
+                )
+            );
+
+
+        const paintURL =
+            "https://jspaint.app/#load:data:image/svg+xml;base64,"
+            + encodedSVG;
+
+
+        document.getElementById("paintFrame").src =
+            paintURL;
 
     </script>
 

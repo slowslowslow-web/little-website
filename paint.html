@@ -71,8 +71,8 @@
                 <div class="paint-iframe-wrap">
 
                     <iframe
+                        id="paintFrame"
                         class="paint-iframe"
-                        src="https://jspaint.app"
                         title="JS Paint"
                         allow="clipboard-read; clipboard-write"
                     ></iframe>
@@ -97,6 +97,22 @@
 
 
     </main>
+
+
+    <!-- LOAD OUR DOODLE INTO JS PAINT -->
+
+    <script>
+
+        const paintFrame =
+            document.getElementById("paintFrame");
+
+        const doodle =
+            new URL("doodle.svg", window.location.href).href;
+
+        paintFrame.src =
+            "https://jspaint.app#load:" + doodle;
+
+    </script>
 
 
 </body>

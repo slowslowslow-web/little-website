@@ -1,88 +1,542 @@
+
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
     <meta charset="UTF-8">
-
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>gallery</title>
-
     <link rel="stylesheet" href="style.css">
 
-</head>
+    <style>
+        .gallery-page {
+            min-height: 100vh;
+            box-sizing: border-box;
+            padding: 75px 7vw 60px;
+            color: #e3b5df;
+        }
 
+        .gallery-heading {
+            text-align: center;
+            margin: 0 0 10px;
+            font-size: 27px;
+            font-weight: normal;
+            letter-spacing: 5px;
+        }
+
+        .gallery-subtitle {
+            text-align: center;
+            font-size: 11px;
+            letter-spacing: 2px;
+            opacity: .7;
+            margin-bottom: 45px;
+        }
+
+        .album-grid {
+            max-width: 1050px;
+            margin: auto;
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 22px;
+        }
+
+        .album-card {
+            appearance: none;
+            width: 100%;
+            padding: 0;
+            color: inherit;
+            font: inherit;
+            text-align: left;
+            cursor: pointer;
+            background: rgba(15, 9, 20, .62);
+            border: 1px solid rgba(222, 164, 217, .35);
+            transition: transform .2s ease, border-color .2s ease;
+        }
+
+        .album-card:hover {
+            transform: translateY(-4px);
+            border-color: #dfa4d9;
+        }
+
+        .album-cover {
+            aspect-ratio: 4 / 5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            background:
+                radial-gradient(ellipse at 50% 35%,
+                    rgba(185, 112, 177, .22),
+                    transparent 65%),
+                #17101c;
+            border-bottom: 1px solid rgba(222, 164, 217, .25);
+        }
+
+        .album-cover::before {
+            content: "";
+            position: absolute;
+            inset: 12px;
+            border: 1px solid rgba(222, 164, 217, .16);
+            pointer-events: none;
+        }
+
+        .album-symbol {
+            font-family: Georgia, serif;
+            font-size: clamp(42px, 6vw, 76px);
+            font-weight: normal;
+            opacity: .8;
+        }
+
+        .album-info {
+            padding: 17px 15px 19px;
+        }
+
+        .album-name {
+            font-size: 13px;
+            line-height: 1.7;
+            letter-spacing: 1.5px;
+            overflow-wrap: anywhere;
+        }
+
+        .album-count {
+            margin-top: 8px;
+            font-size: 10px;
+            letter-spacing: 1.5px;
+            opacity: .55;
+        }
+
+        .gallery-back {
+            display: block;
+            width: fit-content;
+            margin: 38px auto 0;
+            color: #dfa4d9;
+            text-decoration: none;
+            font-size: 10px;
+            letter-spacing: 2px;
+            opacity: .75;
+        }
+
+        .gallery-back:hover {
+            opacity: 1;
+        }
+
+        /* INDIVIDUAL ALBUM VIEW */
+
+        .album-view {
+            display: none;
+            max-width: 760px;
+            margin: 0 auto;
+        }
+
+        .album-view.active {
+            display: block;
+        }
+
+        .album-view-heading {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .album-view-heading h2 {
+            font-size: 20px;
+            font-weight: normal;
+            letter-spacing: 3px;
+            line-height: 1.7;
+            overflow-wrap: anywhere;
+        }
+
+        .album-view-heading p {
+            font-size: 10px;
+            letter-spacing: 2px;
+            opacity: .6;
+        }
+
+        .diary-entry {
+            margin: 0 auto 38px;
+            max-width: 560px;
+        }
+
+        .diary-photo {
+            width: 100%;
+            min-height: 220px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-sizing: border-box;
+            padding: 25px;
+            background: rgba(15, 9, 20, .78);
+            border: 1px solid rgba(222, 164, 217, .3);
+            color: #c9a1c9;
+            cursor: pointer;
+        }
+
+        .diary-photo img {
+            display: block;
+            width: 100%;
+            max-height: 680px;
+            object-fit: contain;
+        }
+
+        .photo-placeholder {
+            font-size: 11px;
+            letter-spacing: 2px;
+            text-align: center;
+            line-height: 2;
+            opacity: .7;
+        }
+
+        .diary-note {
+            padding: 17px 5px 0;
+            font-size: 12px;
+            line-height: 1.9;
+            white-space: pre-wrap;
+            overflow-wrap: anywhere;
+            color: #e3b5df;
+        }
+
+        .diary-note.empty {
+            opacity: .55;
+            font-size: 10px;
+            letter-spacing: 1px;
+        }
+
+        .album-return {
+            display: block;
+            margin: 0 auto 35px;
+            padding: 10px 15px;
+            color: #dfa4d9;
+            background: transparent;
+            border: 1px solid rgba(222, 164, 217, .35);
+            font: inherit;
+            font-size: 10px;
+            letter-spacing: 2px;
+            cursor: pointer;
+        }
+
+        /* FULLSCREEN PHOTO */
+
+        .photo-lightbox {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            padding: 25px;
+            box-sizing: border-box;
+            align-items: center;
+            justify-content: center;
+            background: rgba(8, 5, 12, .96);
+            cursor: zoom-out;
+        }
+
+        .photo-lightbox.open {
+            display: flex;
+        }
+
+        .photo-lightbox img {
+            max-width: 95vw;
+            max-height: 92vh;
+            object-fit: contain;
+            cursor: zoom-in;
+            transition: transform .2s ease;
+        }
+
+        .photo-lightbox img.zoomed {
+            max-width: none;
+            max-height: none;
+            transform: scale(1.7);
+            cursor: zoom-out;
+        }
+
+        .lightbox-hint {
+            position: absolute;
+            bottom: 13px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            color: #dfa4d9;
+            font-size: 10px;
+            letter-spacing: 2px;
+            pointer-events: none;
+            opacity: .7;
+        }
+
+        @media (max-width: 650px) {
+            .gallery-page {
+                padding: 60px 7vw 45px;
+            }
+
+            .gallery-heading {
+                font-size: 23px;
+            }
+
+            .gallery-subtitle {
+                margin-bottom: 30px;
+            }
+
+            .album-grid {
+                grid-template-columns: 1fr;
+                gap: 18px;
+                max-width: 390px;
+            }
+
+            .album-cover {
+                aspect-ratio: 5 / 3;
+            }
+
+            .album-symbol {
+                font-size: 55px;
+            }
+
+            .album-info {
+                padding: 13px 15px;
+            }
+
+            .diary-photo {
+                min-height: 180px;
+            }
+
+            .photo-lightbox {
+                padding: 12px;
+            }
+        }
+    </style>
+</head>
 
 <body>
 
-    <!-- SONG 1 -->
-    <audio id="pageMusic" autoplay preload="auto" hidden>
-        <source src="song1.mp3" type="audio/mpeg">
-    </audio>
-
-
-    <!-- THIN RUG BORDER -->
-
+    <!-- EXISTING RUG BORDER -->
     <div class="rug top"></div>
     <div class="rug bottom"></div>
     <div class="rug left"></div>
     <div class="rug right"></div>
 
+    <main class="gallery-page">
 
-    <main class="page">
+        <!-- THREE-ALBUM SELECTION -->
+        <section id="albumHub">
 
-        <section class="center gallery-page">
+            <h1 class="gallery-heading">gallery</h1>
+            <p class="gallery-subtitle">little pieces of you</p>
 
-            <div class="date">
-                gallery
+            <div class="album-grid">
+
+                <button class="album-card" data-album="me">
+                    <div class="album-cover">
+                        <span class="album-symbol">♡</span>
+                    </div>
+                    <div class="album-info">
+                        <div class="album-name">ME</div>
+                        <div class="album-count">photo diary</div>
+                    </div>
+                </button>
+
+                <button class="album-card" data-album="okay">
+                    <div class="album-cover">
+                        <span class="album-symbol">☾</span>
+                    </div>
+                    <div class="album-info">
+                        <div class="album-name">IT'S OK NOT TO BE OK</div>
+                        <div class="album-count">photo diary</div>
+                    </div>
+                </button>
+
+                <button class="album-card" data-album="beauty">
+                    <div class="album-cover">
+                        <span class="album-symbol">✧</span>
+                    </div>
+                    <div class="album-info">
+                        <div class="album-name">BEAUTY</div>
+                        <div class="album-count">photo diary</div>
+                    </div>
+                </button>
+
             </div>
 
-
-            <!-- PHOTO PLACEHOLDER -->
-
-            <div class="photo-placeholder">
-                PHOTO
-            </div>
+            <a href="index.html" class="gallery-back">← back home</a>
+        </section>
 
 
-            <div class="photo-number">
-                01 / 01
-            </div>
+        <!-- ALBUM CONTENT IS POPULATED FROM THE DATA BELOW -->
+        <section id="albumView" class="album-view">
 
+            <button id="albumReturn" class="album-return">
+                ← all albums
+            </button>
 
-            <a href="index.html"
-               class="back">
+            <header class="album-view-heading">
+                <h2 id="albumTitle"></h2>
+                <p id="albumSubtitle">a little collection</p>
+            </header>
 
-                ← back
+            <div id="diaryEntries"></div>
 
-            </a>
+            <button id="albumReturnBottom" class="album-return">
+                ← all albums
+            </button>
 
         </section>
 
     </main>
 
 
-    <!-- AUTOPLAY FALLBACK -->
+    <!-- FULLSCREEN PHOTO VIEWER -->
+    <div
+        id="photoLightbox"
+        class="photo-lightbox"
+        aria-label="Fullscreen photo viewer"
+        role="dialog"
+        aria-modal="true"
+    >
+        <img id="lightboxImage" alt="Expanded album photo">
+        <div class="lightbox-hint">click outside to close · click photo to zoom</div>
+    </div>
+
 
     <script>
+        /*
+          ADD PHOTOS AND NOTES HERE LATER.
 
-        const music =
-            document.getElementById("pageMusic");
+          Each entry uses:
+          image: exact photo filename in your repository
+          note: the text that appears below that photo
 
-        music.play().catch(() => {});
+          Example:
+          { image: "photo1.jpg", note: "your note here" }
 
-        document.addEventListener("click", () => {
+          Leave an album's entries empty until its photos and notes are ready.
+        */
 
-            if (music.paused) {
-                music.play().catch(() => {});
+        const albums = {
+            me: {
+                title: "ME",
+                entries: []
+            },
+
+            okay: {
+                title: "IT'S OK NOT TO BE OK",
+                entries: []
+            },
+
+            beauty: {
+                title: "BEAUTY",
+                entries: []
+            }
+        };
+
+
+        const hub = document.getElementById("albumHub");
+        const albumView = document.getElementById("albumView");
+        const albumTitle = document.getElementById("albumTitle");
+        const diaryEntries = document.getElementById("diaryEntries");
+
+        function openAlbum(albumKey) {
+            const album = albums[albumKey];
+            if (!album) return;
+
+            albumTitle.textContent = album.title;
+            diaryEntries.replaceChildren();
+
+            if (album.entries.length === 0) {
+                const message = document.createElement("p");
+                message.className = "photo-placeholder";
+                message.textContent = "photos and notes will live here";
+                diaryEntries.appendChild(message);
+            } else {
+                album.entries.forEach((entry) => {
+                    const article = document.createElement("article");
+                    article.className = "diary-entry";
+
+                    const photo = document.createElement("button");
+                    photo.className = "diary-photo";
+                    photo.type = "button";
+                    photo.setAttribute("aria-label", "Open photo fullscreen");
+
+                    const img = document.createElement("img");
+                    img.src = entry.image;
+                    img.alt = "";
+                    img.loading = "lazy";
+
+                    img.addEventListener("error", () => {
+                        photo.replaceChildren();
+                        const error = document.createElement("span");
+                        error.className = "photo-placeholder";
+                        error.textContent = "photo file not found — check its filename";
+                        photo.appendChild(error);
+                    });
+
+                    photo.appendChild(img);
+                    photo.addEventListener("click", () => openLightbox(entry.image));
+
+                    const note = document.createElement("div");
+                    note.className = "diary-note";
+                    note.textContent = entry.note || "";
+
+                    if (!entry.note) {
+                        note.classList.add("empty");
+                        note.textContent = "note goes here";
+                    }
+
+                    article.append(photo, note);
+                    diaryEntries.appendChild(article);
+                });
             }
 
-        }, { once: true });
+            hub.style.display = "none";
+            albumView.classList.add("active");
+            window.scrollTo(0, 0);
+        }
 
+        function returnToHub() {
+            albumView.classList.remove("active");
+            hub.style.display = "";
+            window.scrollTo(0, 0);
+        }
+
+        document.querySelectorAll("[data-album]").forEach((button) => {
+            button.addEventListener("click", () => {
+                openAlbum(button.dataset.album);
+            });
+        });
+
+        document.getElementById("albumReturn").addEventListener("click", returnToHub);
+        document.getElementById("albumReturnBottom").addEventListener("click", returnToHub);
+
+
+        // PHOTO LIGHTBOX
+        const lightbox = document.getElementById("photoLightbox");
+        const lightboxImage = document.getElementById("lightboxImage");
+
+        function openLightbox(src) {
+            lightboxImage.src = src;
+            lightboxImage.classList.remove("zoomed");
+            lightbox.classList.add("open");
+            document.body.style.overflow = "hidden";
+        }
+
+        function closeLightbox() {
+            lightbox.classList.remove("open");
+            lightboxImage.classList.remove("zoomed");
+            lightboxImage.removeAttribute("src");
+            document.body.style.overflow = "";
+        }
+
+        lightbox.addEventListener("click", (event) => {
+            if (event.target === lightbox) {
+                closeLightbox();
+            }
+        });
+
+        lightboxImage.addEventListener("click", (event) => {
+            event.stopPropagation();
+            lightboxImage.classList.toggle("zoomed");
+        });
+
+        document.addEventListener("keydown", (event) => {
+            if (event.key === "Escape" && lightbox.classList.contains("open")) {
+                closeLightbox();
+            }
+        });
     </script>
 
 </body>
-
 </html>

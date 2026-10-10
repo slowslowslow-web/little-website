@@ -1,6 +1,7 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,116 +12,89 @@
         .gallery-page {
             min-height: 100vh;
             box-sizing: border-box;
-            padding: 75px 7vw 60px;
-            color: #e3b5df;
+            padding: 70px 24px 60px;
+            color: #b77acb;
+        }
+
+        .gallery-top {
+            max-width: 900px;
+            margin: 0 auto 35px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+        }
+
+        .gallery-top a,
+        .gallery-back,
+        .next-song {
+            color: inherit;
+            text-decoration: none;
+            cursor: pointer;
+            font: inherit;
+        }
+
+        .gallery-top a:hover,
+        .gallery-back:hover,
+        .next-song:hover {
+            opacity: 0.65;
         }
 
         .gallery-heading {
             text-align: center;
-            margin: 0 0 10px;
-            font-size: 27px;
+            margin: 25px 0 40px;
             font-weight: normal;
-            letter-spacing: 5px;
-        }
-
-        .gallery-subtitle {
-            text-align: center;
-            font-size: 11px;
             letter-spacing: 2px;
-            opacity: .7;
-            margin-bottom: 45px;
         }
 
         .album-grid {
-            max-width: 1050px;
-            margin: auto;
+            max-width: 900px;
+            margin: 0 auto;
             display: grid;
             grid-template-columns: repeat(3, minmax(0, 1fr));
             gap: 22px;
         }
 
         .album-card {
-            appearance: none;
-            width: 100%;
-            padding: 0;
+            border: 1px solid rgba(183, 122, 203, 0.4);
+            background: rgba(255, 255, 255, 0.12);
             color: inherit;
-            font: inherit;
-            text-align: left;
+            text-decoration: none;
             cursor: pointer;
-            background: rgba(15, 9, 20, .62);
-            border: 1px solid rgba(222, 164, 217, .35);
-            transition: transform .2s ease, border-color .2s ease;
+            padding: 14px;
+            text-align: center;
+            transition: transform 0.2s ease, opacity 0.2s ease;
+            min-width: 0;
         }
 
         .album-card:hover {
             transform: translateY(-4px);
-            border-color: #dfa4d9;
         }
 
         .album-cover {
-            aspect-ratio: 4 / 5;
+            aspect-ratio: 1 / 1;
             display: flex;
             align-items: center;
             justify-content: center;
-            position: relative;
             overflow: hidden;
-            background:
-                radial-gradient(ellipse at 50% 35%,
-                    rgba(185, 112, 177, .22),
-                    transparent 65%),
-                #17101c;
-            border-bottom: 1px solid rgba(222, 164, 217, .25);
+            background: rgba(183, 122, 203, 0.10);
+            border: 1px solid rgba(183, 122, 203, 0.25);
+            margin-bottom: 16px;
+            font-size: 38px;
         }
 
-        .album-cover::before {
-            content: "";
-            position: absolute;
-            inset: 12px;
-            border: 1px solid rgba(222, 164, 217, .16);
-            pointer-events: none;
+        .album-cover img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
-        .album-symbol {
-            font-family: Georgia, serif;
-            font-size: clamp(42px, 6vw, 76px);
-            font-weight: normal;
-            opacity: .8;
-        }
-
-        .album-info {
-            padding: 17px 15px 19px;
-        }
-
-        .album-name {
+        .album-title {
             font-size: 13px;
-            line-height: 1.7;
             letter-spacing: 1.5px;
+            line-height: 1.7;
             overflow-wrap: anywhere;
         }
-
-        .album-count {
-            margin-top: 8px;
-            font-size: 10px;
-            letter-spacing: 1.5px;
-            opacity: .55;
-        }
-
-        .gallery-back {
-            display: block;
-            width: fit-content;
-            margin: 38px auto 0;
-            color: #dfa4d9;
-            text-decoration: none;
-            font-size: 10px;
-            letter-spacing: 2px;
-            opacity: .75;
-        }
-
-        .gallery-back:hover {
-            opacity: 1;
-        }
-
-        /* INDIVIDUAL ALBUM VIEW */
 
         .album-view {
             display: none;
@@ -134,169 +108,119 @@
 
         .album-view-heading {
             text-align: center;
-            margin-bottom: 35px;
-        }
-
-        .album-view-heading h2 {
-            font-size: 20px;
             font-weight: normal;
-            letter-spacing: 3px;
-            line-height: 1.7;
+            letter-spacing: 2px;
+            margin: 12px 0 30px;
             overflow-wrap: anywhere;
         }
 
-        .album-view-heading p {
-            font-size: 10px;
-            letter-spacing: 2px;
-            opacity: .6;
+        .album-controls {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 18px;
+            margin: 0 auto 35px;
+            flex-wrap: wrap;
+        }
+
+        .next-song {
+            border: 1px solid rgba(183, 122, 203, 0.6);
+            background: rgba(255, 255, 255, 0.12);
+            padding: 9px 18px;
+            border-radius: 0;
+        }
+
+        .song-counter {
+            font-size: 13px;
+            letter-spacing: 1px;
+            min-width: 45px;
+            text-align: center;
         }
 
         .diary-entry {
             margin: 0 auto 38px;
+            text-align: center;
             max-width: 560px;
         }
 
         .diary-photo {
-            width: 100%;
-            min-height: 220px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-sizing: border-box;
-            padding: 25px;
-            background: rgba(15, 9, 20, .78);
-            border: 1px solid rgba(222, 164, 217, .3);
-            color: #c9a1c9;
-            cursor: pointer;
-        }
-
-        .diary-photo img {
             display: block;
-            width: 100%;
-            max-height: 680px;
+            max-width: 100%;
+            width: auto;
+            max-height: 620px;
+            margin: 0 auto;
+            cursor: zoom-in;
             object-fit: contain;
-        }
-
-        .photo-placeholder {
-            font-size: 11px;
-            letter-spacing: 2px;
-            text-align: center;
-            line-height: 2;
-            opacity: .7;
+            border: 1px solid rgba(183, 122, 203, 0.25);
         }
 
         .diary-note {
-            padding: 17px 5px 0;
-            font-size: 12px;
-            line-height: 1.9;
+            margin: 12px auto 0;
+            font-size: 13px;
+            letter-spacing: 0.5px;
+            line-height: 1.7;
             white-space: pre-wrap;
             overflow-wrap: anywhere;
-            color: #e3b5df;
         }
 
-        .diary-note.empty {
-            opacity: .55;
-            font-size: 10px;
-            letter-spacing: 1px;
+        .empty-album {
+            text-align: center;
+            opacity: 0.75;
+            padding: 40px 12px;
+            line-height: 1.8;
         }
-
-        .album-return {
-            display: block;
-            margin: 0 auto 35px;
-            padding: 10px 15px;
-            color: #dfa4d9;
-            background: transparent;
-            border: 1px solid rgba(222, 164, 217, .35);
-            font: inherit;
-            font-size: 10px;
-            letter-spacing: 2px;
-            cursor: pointer;
-        }
-
-        /* FULLSCREEN PHOTO */
 
         .photo-lightbox {
-            display: none;
             position: fixed;
             inset: 0;
             z-index: 9999;
-            padding: 25px;
-            box-sizing: border-box;
+            background: rgba(10, 8, 13, 0.92);
+            display: none;
             align-items: center;
             justify-content: center;
-            background: rgba(8, 5, 12, .96);
+            padding: 24px;
+            box-sizing: border-box;
             cursor: zoom-out;
         }
 
-        .photo-lightbox.open {
+        .photo-lightbox.active {
             display: flex;
         }
 
         .photo-lightbox img {
+            display: block;
             max-width: 95vw;
             max-height: 92vh;
             object-fit: contain;
-            cursor: zoom-in;
-            transition: transform .2s ease;
-        }
-
-        .photo-lightbox img.zoomed {
-            max-width: none;
-            max-height: none;
-            transform: scale(1.7);
             cursor: zoom-out;
-        }
-
-        .lightbox-hint {
-            position: absolute;
-            bottom: 13px;
-            left: 0;
-            right: 0;
-            text-align: center;
-            color: #dfa4d9;
-            font-size: 10px;
-            letter-spacing: 2px;
-            pointer-events: none;
-            opacity: .7;
         }
 
         @media (max-width: 650px) {
             .gallery-page {
-                padding: 60px 7vw 45px;
-            }
-
-            .gallery-heading {
-                font-size: 23px;
-            }
-
-            .gallery-subtitle {
-                margin-bottom: 30px;
+                padding: 55px 20px 40px;
             }
 
             .album-grid {
                 grid-template-columns: 1fr;
-                gap: 18px;
-                max-width: 390px;
+                max-width: 330px;
+                gap: 20px;
+            }
+
+            .album-card {
+                padding: 12px;
             }
 
             .album-cover {
-                aspect-ratio: 5 / 3;
-            }
-
-            .album-symbol {
-                font-size: 55px;
-            }
-
-            .album-info {
-                padding: 13px 15px;
+                aspect-ratio: 4 / 3;
             }
 
             .diary-photo {
-                min-height: 180px;
+                max-height: 70vh;
+                max-width: 100%;
             }
 
-            .photo-lightbox {
-                padding: 12px;
+            .gallery-heading {
+                margin-bottom: 30px;
             }
         }
     </style>
@@ -304,7 +228,7 @@
 
 <body>
 
-    <!-- EXISTING RUG BORDER -->
+    <!-- THIN RUG BORDER -->
     <div class="rug top"></div>
     <div class="rug bottom"></div>
     <div class="rug left"></div>
@@ -312,183 +236,330 @@
 
     <main class="gallery-page">
 
-        <!-- THREE-ALBUM SELECTION -->
-        <section id="albumHub">
+        <!-- TOP NAVIGATION -->
+        <header class="gallery-top">
+            <a href="index.html" id="homeLink">← home</a>
+            <a href="index.html" aria-label="Home">8</a>
+        </header>
 
+        <!-- ALBUM HUB -->
+        <section id="albumHub">
             <h1 class="gallery-heading">gallery</h1>
-            <p class="gallery-subtitle">little pieces of you</p>
 
             <div class="album-grid">
 
-                <button class="album-card" data-album="me">
+                <button class="album-card" type="button" data-album="me">
                     <div class="album-cover">
-                        <span class="album-symbol">♡</span>
+                        <span>♡</span>
                     </div>
-                    <div class="album-info">
-                        <div class="album-name">ME</div>
-                        <div class="album-count">photo diary</div>
-                    </div>
+                    <div class="album-title">ME</div>
                 </button>
 
-                <button class="album-card" data-album="okay">
+                <button class="album-card" type="button" data-album="itsok">
                     <div class="album-cover">
-                        <span class="album-symbol">☾</span>
+                        <span>☁</span>
                     </div>
-                    <div class="album-info">
-                        <div class="album-name">IT'S OK NOT TO BE OK</div>
-                        <div class="album-count">photo diary</div>
-                    </div>
+                    <div class="album-title">IT'S OK NOT TO BE OK</div>
                 </button>
 
-                <button class="album-card" data-album="beauty">
+                <button class="album-card" type="button" data-album="beauty">
                     <div class="album-cover">
-                        <span class="album-symbol">✧</span>
+                        <span>✿</span>
                     </div>
-                    <div class="album-info">
-                        <div class="album-name">BEAUTY</div>
-                        <div class="album-count">photo diary</div>
-                    </div>
+                    <div class="album-title">BEAUTY</div>
                 </button>
 
             </div>
-
-            <a href="index.html" class="gallery-back">← back home</a>
         </section>
 
-
-        <!-- ALBUM CONTENT IS POPULATED FROM THE DATA BELOW -->
+        <!-- ALBUM CONTENT -->
         <section id="albumView" class="album-view">
 
-            <button id="albumReturn" class="album-return">
-                ← all albums
-            </button>
+            <div class="gallery-top">
+                <button type="button" class="gallery-back" id="backToAlbums">
+                    ← albums
+                </button>
+                <a href="index.html" id="albumHomeLink">home</a>
+            </div>
 
-            <header class="album-view-heading">
-                <h2 id="albumTitle"></h2>
-                <p id="albumSubtitle">a little collection</p>
-            </header>
+            <h1 id="albumHeading" class="album-view-heading"></h1>
 
-            <div id="diaryEntries"></div>
+            <!-- MUSIC CONTROLS: NO TRACK NAMES OR PREVIOUS BUTTON -->
+            <div id="albumMusicControls" class="album-controls" hidden>
+                <span id="songCounter" class="song-counter">1 / 12</span>
+                <button id="nextSong" class="next-song" type="button">
+                    next →
+                </button>
+            </div>
 
-            <button id="albumReturnBottom" class="album-return">
-                ← all albums
-            </button>
+            <!-- PHOTOS AND NOTES -->
+            <div id="diaryContainer"></div>
 
         </section>
 
     </main>
 
-
     <!-- FULLSCREEN PHOTO VIEWER -->
-    <div
-        id="photoLightbox"
-        class="photo-lightbox"
-        aria-label="Fullscreen photo viewer"
-        role="dialog"
-        aria-modal="true"
-    >
-        <img id="lightboxImage" alt="Expanded album photo">
-        <div class="lightbox-hint">click outside to close · click photo to zoom</div>
+    <div id="photoLightbox" class="photo-lightbox" aria-hidden="true">
+        <img id="lightboxImage" src="" alt="">
     </div>
 
-
     <script>
-        /*
-          ADD PHOTOS AND NOTES HERE LATER.
+        // --------------------------------------------------
+        // BACKGROUND MUSIC
+        // Uses the same saved position as index.html.
+        // --------------------------------------------------
 
-          Each entry uses:
-          image: exact photo filename in your repository
-          note: the text that appears below that photo
+        const musicKey = "birthdayBackgroundMusicTime";
+        const backgroundMusic = new Audio("background.mp3");
 
-          Example:
-          { image: "photo1.jpg", note: "your note here" }
+        backgroundMusic.loop = true;
+        backgroundMusic.preload = "auto";
 
-          Leave an album's entries empty until its photos and notes are ready.
-        */
+        let backgroundStarted = false;
+
+        function saveBackgroundPosition() {
+            if (Number.isFinite(backgroundMusic.currentTime)) {
+                sessionStorage.setItem(
+                    musicKey,
+                    String(backgroundMusic.currentTime)
+                );
+            }
+        }
+
+        function startBackgroundMusic() {
+            if (backgroundStarted) {
+                backgroundMusic.play().catch(() => {});
+                return;
+            }
+
+            backgroundStarted = true;
+
+            backgroundMusic.addEventListener("loadedmetadata", () => {
+                const savedTime = Number(
+                    sessionStorage.getItem(musicKey)
+                );
+
+                if (
+                    Number.isFinite(savedTime) &&
+                    savedTime >= 0 &&
+                    Number.isFinite(backgroundMusic.duration) &&
+                    backgroundMusic.duration > 0 &&
+                    savedTime < backgroundMusic.duration
+                ) {
+                    backgroundMusic.currentTime = savedTime;
+                }
+
+                backgroundMusic.play().catch(() => {});
+            }, { once: true });
+
+            backgroundMusic.load();
+        }
+
+        backgroundMusic.addEventListener("timeupdate", saveBackgroundPosition);
+
+        window.addEventListener("pagehide", saveBackgroundPosition);
+
+        function pauseBackgroundMusic() {
+            saveBackgroundPosition();
+            backgroundMusic.pause();
+        }
+
+        // --------------------------------------------------
+        // ALBUMS AND PLAYLISTS
+        // --------------------------------------------------
 
         const albums = {
             me: {
                 title: "ME",
-                entries: []
+
+                photos: [
+                    { src: "1.jpg", note: "(note here)" },
+                    { src: "2.jpg", note: "(note here)" },
+                    { src: "3.jpg", note: "(note here)" },
+                    { src: "4.jpg", note: "(note here)" },
+                    { src: "5.jpg", note: "(note here)" },
+                    { src: "6.jpg", note: "(note here)" },
+                    { src: "7.jpg", note: "(note here)" },
+                    { src: "8.jpg", note: "(note here)" },
+                    { src: "9.jpg", note: "(note here)" },
+                    { src: "10.jpg", note: "(note here)" },
+                    { src: "11.jpg", note: "(note here)" },
+                    { src: "12.jpg", note: "(note here)" },
+                    { src: "13.jpg", note: "(note here)" },
+                    { src: "14.jpg", note: "(note here)" },
+                    { src: "15.jpg", note: "(note here)" },
+                    { src: "16.jpg", note: "(note here)" },
+                    { src: "17.jpg", note: "(note here)" },
+                    { src: "18.jpg", note: "(note here)" },
+                    { src: "19.jpg", note: "(note here)" }
+                ],
+
+                playlist: [
+                    "song1.mp3",
+                    "Salem (instrumental).mp3",
+                    "Jaden Smith - Fallen.mp3",
+                    "yung bruh - vampiregoth u,__u.mp3",
+                    "Molly Santana - Ecstasy (prod. psykidd x turro).mp3",
+                    "Kanye West - Flashing Lights.mp3",
+                    "Lil Uzi Vert - 13 Nuyork Nights At 21 (Produced By FKI).mp3",
+                    "Lil Peep - Ghost Girl.mp3",
+                    "Lil Peep - ghost boy.mp3",
+                    "Kendrick Lamar - LOVE..mp3",
+                    "Daniel Caesar - Get You ft Kali Uchis.mp3",
+                    "Lil Peep - PRINCESS.mp3"
+                ]
             },
 
-            okay: {
+            itsok: {
                 title: "IT'S OK NOT TO BE OK",
-                entries: []
+                photos: [],
+                playlist: []
             },
 
             beauty: {
                 title: "BEAUTY",
-                entries: []
+                photos: [],
+                playlist: []
             }
         };
 
-
-        const hub = document.getElementById("albumHub");
+        const albumHub = document.getElementById("albumHub");
         const albumView = document.getElementById("albumView");
-        const albumTitle = document.getElementById("albumTitle");
-        const diaryEntries = document.getElementById("diaryEntries");
+        const albumHeading = document.getElementById("albumHeading");
+        const diaryContainer = document.getElementById("diaryContainer");
+        const albumMusicControls = document.getElementById("albumMusicControls");
+        const songCounter = document.getElementById("songCounter");
+        const nextSongButton = document.getElementById("nextSong");
 
-        function openAlbum(albumKey) {
-            const album = albums[albumKey];
-            if (!album) return;
+        let currentAlbum = null;
+        let currentTrackIndex = 0;
+        let albumMusic = new Audio();
+        let albumMusicActive = false;
 
-            albumTitle.textContent = album.title;
-            diaryEntries.replaceChildren();
+        albumMusic.preload = "auto";
 
-            if (album.entries.length === 0) {
-                const message = document.createElement("p");
-                message.className = "photo-placeholder";
-                message.textContent = "photos and notes will live here";
-                diaryEntries.appendChild(message);
-            } else {
-                album.entries.forEach((entry) => {
-                    const article = document.createElement("article");
-                    article.className = "diary-entry";
+        function updateSongCounter() {
+            const playlist = albums[currentAlbum]?.playlist || [];
 
-                    const photo = document.createElement("button");
-                    photo.className = "diary-photo";
-                    photo.type = "button";
-                    photo.setAttribute("aria-label", "Open photo fullscreen");
+            if (playlist.length > 0) {
+                songCounter.textContent =
+                    (currentTrackIndex + 1) + " / " + playlist.length;
+            }
+        }
 
-                    const img = document.createElement("img");
-                    img.src = entry.image;
-                    img.alt = "";
-                    img.loading = "lazy";
+        function playCurrentTrack() {
+            const playlist = albums[currentAlbum]?.playlist || [];
 
-                    img.addEventListener("error", () => {
-                        photo.replaceChildren();
-                        const error = document.createElement("span");
-                        error.className = "photo-placeholder";
-                        error.textContent = "photo file not found — check its filename";
-                        photo.appendChild(error);
-                    });
-
-                    photo.appendChild(img);
-                    photo.addEventListener("click", () => openLightbox(entry.image));
-
-                    const note = document.createElement("div");
-                    note.className = "diary-note";
-                    note.textContent = entry.note || "";
-
-                    if (!entry.note) {
-                        note.classList.add("empty");
-                        note.textContent = "note goes here";
-                    }
-
-                    article.append(photo, note);
-                    diaryEntries.appendChild(article);
-                });
+            if (!playlist.length) {
+                albumMusic.pause();
+                albumMusic.removeAttribute("src");
+                albumMusicControls.hidden = true;
+                return;
             }
 
-            hub.style.display = "none";
+            albumMusicActive = true;
+            albumMusic.src = playlist[currentTrackIndex];
+            albumMusic.load();
+
+            updateSongCounter();
+            albumMusicControls.hidden = false;
+
+            albumMusic.play().catch(() => {
+                // If playback is blocked, the next button can retry.
+            });
+        }
+
+        function nextTrack() {
+            const playlist = albums[currentAlbum]?.playlist || [];
+
+            if (!playlist.length) return;
+
+            currentTrackIndex = (currentTrackIndex + 1) % playlist.length;
+            playCurrentTrack();
+        }
+
+        albumMusic.addEventListener("ended", nextTrack);
+
+        nextSongButton.addEventListener("click", nextTrack);
+
+        function renderAlbum(key) {
+            const album = albums[key];
+
+            diaryContainer.innerHTML = "";
+
+            if (!album.photos.length) {
+                const emptyMessage = document.createElement("p");
+                emptyMessage.className = "empty-album";
+                emptyMessage.textContent = "photos and notes coming soon ♡";
+                diaryContainer.appendChild(emptyMessage);
+                return;
+            }
+
+            album.photos.forEach((photo) => {
+                const entry = document.createElement("article");
+                entry.className = "diary-entry";
+
+                const image = document.createElement("img");
+                image.className = "diary-photo";
+                image.src = photo.src;
+                image.alt = "";
+                image.loading = "lazy";
+
+                image.addEventListener("click", () => {
+                    openLightbox(photo.src);
+                });
+
+                const note = document.createElement("div");
+                note.className = "diary-note";
+                note.textContent = photo.note;
+
+                entry.appendChild(image);
+                entry.appendChild(note);
+                diaryContainer.appendChild(entry);
+            });
+        }
+
+        function openAlbum(key) {
+            currentAlbum = key;
+            currentTrackIndex = 0;
+
+            pauseBackgroundMusic();
+
+            albumHub.style.display = "none";
             albumView.classList.add("active");
+
+            albumHeading.textContent = albums[key].title;
+
+            renderAlbum(key);
+
+            if (albums[key].playlist.length) {
+                playCurrentTrack();
+            } else {
+                albumMusicActive = false;
+                albumMusic.pause();
+                albumMusic.removeAttribute("src");
+                albumMusicControls.hidden = true;
+            }
+
             window.scrollTo(0, 0);
         }
 
         function returnToHub() {
+            closeLightbox();
+
+            albumMusic.pause();
+            albumMusic.removeAttribute("src");
+            albumMusic.load();
+            albumMusicActive = false;
+
+            currentAlbum = null;
+
             albumView.classList.remove("active");
-            hub.style.display = "";
+            albumHub.style.display = "block";
+
+            startBackgroundMusic();
+
             window.scrollTo(0, 0);
         }
 
@@ -498,44 +569,59 @@
             });
         });
 
-        document.getElementById("albumReturn").addEventListener("click", returnToHub);
-        document.getElementById("albumReturnBottom").addEventListener("click", returnToHub);
+        document.getElementById("backToAlbums").addEventListener(
+            "click",
+            returnToHub
+        );
 
-
+        // --------------------------------------------------
         // PHOTO LIGHTBOX
-        const lightbox = document.getElementById("photoLightbox");
+        // Click the photo to open; click outside or press
+        // Escape to close.
+        // --------------------------------------------------
+
+        const photoLightbox = document.getElementById("photoLightbox");
         const lightboxImage = document.getElementById("lightboxImage");
 
         function openLightbox(src) {
             lightboxImage.src = src;
-            lightboxImage.classList.remove("zoomed");
-            lightbox.classList.add("open");
-            document.body.style.overflow = "hidden";
+            photoLightbox.classList.add("active");
+            photoLightbox.setAttribute("aria-hidden", "false");
         }
 
         function closeLightbox() {
-            lightbox.classList.remove("open");
-            lightboxImage.classList.remove("zoomed");
-            lightboxImage.removeAttribute("src");
-            document.body.style.overflow = "";
+            photoLightbox.classList.remove("active");
+            photoLightbox.setAttribute("aria-hidden", "true");
+            lightboxImage.src = "";
         }
 
-        lightbox.addEventListener("click", (event) => {
-            if (event.target === lightbox) {
+        photoLightbox.addEventListener("click", (event) => {
+            if (event.target === photoLightbox || event.target === lightboxImage) {
                 closeLightbox();
             }
-        });
-
-        lightboxImage.addEventListener("click", (event) => {
-            event.stopPropagation();
-            lightboxImage.classList.toggle("zoomed");
         });
 
         document.addEventListener("keydown", (event) => {
-            if (event.key === "Escape" && lightbox.classList.contains("open")) {
+            if (event.key === "Escape") {
                 closeLightbox();
             }
         });
+
+        // --------------------------------------------------
+        // NAVIGATION
+        // --------------------------------------------------
+
+        document.getElementById("homeLink").addEventListener("click", () => {
+            saveBackgroundPosition();
+        });
+
+        document.getElementById("albumHomeLink").addEventListener("click", () => {
+            saveBackgroundPosition();
+        });
+
+        // Start the background track when the gallery hub opens.
+        startBackgroundMusic();
+
     </script>
 
 </body>

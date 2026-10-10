@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -10,74 +11,51 @@
 
 <body>
 
-    <!-- HOME BACKGROUND MUSIC ONLY -->
-    <audio id="backgroundMusic" autoplay loop>
+    <!-- HOME BACKGROUND MUSIC -->
+    <audio id="backgroundMusic" autoplay loop preload="auto">
         <source src="background.mp3" type="audio/mpeg">
     </audio>
 
-
     <!-- THIN RUG BORDER -->
-
     <div class="rug top"></div>
     <div class="rug bottom"></div>
     <div class="rug left"></div>
     <div class="rug right"></div>
 
-
     <main class="page">
 
-        <!-- SMALL SYMBOLS -->
-
+        <!-- NUMBER 8 -->
         <div class="symbol eight">8</div>
 
-        <!-- AIR SIGN / PAINT -->
-
+        <!-- AIR SIGN / PAINT ROOM -->
         <a href="paint.html" class="symbol neptune">🜁</a>
 
-
         <!-- GALLERY -->
-
         <a href="gallery.html" class="floating-object album">
-
             <div class="pixel-camera">
                 <div class="camera-lens"></div>
             </div>
-
             <span>open</span>
-
         </a>
 
-
         <!-- NOTES -->
-
         <a href="notes.html" class="floating-object note">
-
             <div class="pixel-note">
                 <div></div>
                 <div></div>
                 <div></div>
             </div>
-
             <span>open</span>
-
         </a>
-
 
         <!-- SECRET -->
-
         <a href="secret.html" class="floating-object secret">
-
             <div class="pixel-eight">8</div>
-
             <span>...</span>
-
         </a>
 
-
         <!-- CENTER -->
-
         <section class="center">
-
             <div class="date">
                 10 / 10
             </div>
@@ -89,32 +67,64 @@
             <div class="infinity">
                 ∞
             </div>
-
         </section>
 
-
+        <!-- USERNAME -->
         <div class="username">
             missmollysan
         </div>
 
     </main>
 
-
-    <!-- AUTOPLAY FALLBACK -->
-
+    <!-- BACKGROUND MUSIC POSITION SAVING -->
     <script>
+        const music = document.getElementById("backgroundMusic");
+        const musicKey = "birthdayBackgroundMusicTime";
 
-        const music =
-            document.getElementById("backgroundMusic");
+        // Restore the saved position when the homepage loads.
+        music.addEventListener("loadedmetadata", () => {
+            const savedTime = Number(sessionStorage.getItem(musicKey));
 
+            if (
+                Number.isFinite(savedTime) &&
+                savedTime >= 0 &&
+                Number.isFinite(music.duration) &&
+                music.duration > 0 &&
+                savedTime < music.duration
+            ) {
+                music.currentTime = savedTime;
+            }
+
+            // Browsers may require the visitor to click before music plays.
+            music.play().catch(() => {});
+        }, { once: true });
+
+        // Keep updating the saved playback position.
+        music.addEventListener("timeupdate", () => {
+            if (Number.isFinite(music.currentTime)) {
+                sessionStorage.setItem(
+                    musicKey,
+                    String(music.currentTime)
+                );
+            }
+        });
+
+        // Save the latest position before leaving the page.
+        window.addEventListener("pagehide", () => {
+            if (Number.isFinite(music.currentTime)) {
+                sessionStorage.setItem(
+                    musicKey,
+                    String(music.currentTime)
+                );
+            }
+        });
+
+        // Retry playback after the visitor's first click if needed.
         document.addEventListener("click", () => {
-
             if (music.paused) {
                 music.play().catch(() => {});
             }
-
         }, { once: true });
-
     </script>
 
 </body>

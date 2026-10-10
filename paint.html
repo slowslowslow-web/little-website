@@ -1,96 +1,56 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-
     <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>untitled - Paint</title>
-
     <link rel="stylesheet" href="style.css">
-
 </head>
 
-
 <body>
-
 
     <div class="rug top"></div>
     <div class="rug bottom"></div>
     <div class="rug left"></div>
     <div class="rug right"></div>
 
-
     <main class="paint-page">
-
-
         <section class="paint-room">
-
 
             <div class="paint-window">
 
-
                 <div class="paint-titlebar">
-
-                    <div class="paint-title">
-                        untitled - Paint
-                    </div>
+                    <div class="paint-title">untitled - Paint</div>
 
                     <div class="paint-buttons">
-
-                        <div class="paint-button">
-                            _
-                        </div>
-
-                        <div class="paint-button">
-                            □
-                        </div>
-
-                        <div class="paint-button">
-                            ×
-                        </div>
-
+                        <div class="paint-button">_</div>
+                        <div class="paint-button">□</div>
+                        <div class="paint-button">×</div>
                     </div>
-
                 </div>
 
-
                 <div class="paint-iframe-wrap">
-
                     <iframe
                         id="paintFrame"
                         class="paint-iframe"
                         title="JS Paint"
                         allow="clipboard-read; clipboard-write"
                     ></iframe>
-
                 </div>
-
 
             </div>
 
-
-            <a
-                href="index.html"
-                class="paint-back"
-            >
-                ← back
-            </a>
-
+            <a href="index.html" class="paint-back">← back</a>
 
         </section>
-
-
     </main>
 
+    <!-- HIDDEN DRAWING-PAGE PLAYLIST -->
+    <audio id="drawingMusic" preload="auto"></audio>
 
     <script>
-
         const svg = `
 <svg xmlns="http://www.w3.org/2000/svg"
      width="800"
@@ -99,9 +59,7 @@
 
     <rect width="800" height="600" fill="white"/>
 
-
-    <!-- MESSAGE FIRST -->
-
+    <!-- BIRTHDAY MESSAGE -->
     <text
         x="400"
         y="95"
@@ -115,9 +73,7 @@
         <tspan fill="#e34b62">missmollysan</tspan>
     </text>
 
-
-    <!-- CUTE ASCII CAT -->
-
+    <!-- CUTE CAT -->
     <text
         x="400"
         y="180"
@@ -127,7 +83,6 @@
         fill="#333333"
         xml:space="preserve"
     >       /\\     /\\</text>
-
 
     <text
         x="400"
@@ -139,7 +94,6 @@
         xml:space="preserve"
     >      /  \\___/  \\</text>
 
-
     <text
         x="400"
         y="244"
@@ -149,7 +103,6 @@
         fill="#333333"
         xml:space="preserve"
     >       •     •</text>
-
 
     <text
         x="400"
@@ -161,9 +114,7 @@
         xml:space="preserve"
     >         ᴗ</text>
 
-
     <!-- LIGHT BLUE HEART -->
-
     <text
         x="400"
         y="340"
@@ -174,9 +125,7 @@
         xml:space="preserve"
     >          ♡</text>
 
-
     <!-- HASHTAG -->
-
     <text
         x="400"
         y="420"
@@ -188,30 +137,66 @@
         <tspan fill="#111111">blackpunkkkk</tspan>
     </text>
 
-
 </svg>
 `;
 
-
-        const encodedSVG =
-            btoa(
-                unescape(
-                    encodeURIComponent(svg)
-                )
-            );
-
-
-        const paintURL =
-            "https://jspaint.app/#load:data:image/svg+xml;base64,"
-            + encodedSVG;
-
+        // Load the drawing directly into JS Paint.
+        const encodedSVG = btoa(
+            unescape(encodeURIComponent(svg))
+        );
 
         document.getElementById("paintFrame").src =
-            paintURL;
+            "https://jspaint.app/#load:data:image/svg+xml;base64," +
+            encodedSVG;
+
+
+        // DRAWING-PAGE PLAYLIST — EXACT FILE NAMES AND ORDER
+        const playlist = [
+            "Lil Wayne - I Feel Like Dying.mp3",
+            "yung bruh - souljawitch's faith.mp3",
+            "Thaiboy Digital - Diamonds (feat. Yung Lean).mp3",
+            "Kodak Black - Flexin With The Racks.mp3",
+            "Speaker Knockerz - How Could U.mp3",
+            "1st Lady- Missing you.mp3",
+            "Kendrick Lamar - Growing Apart (To Get Closer) feat Jhene Aiko.mp3",
+            "Cheerleader (Felix Jaehn Remix) (Radio Edit).mp3",
+            "sed8te - tune 2.mp3",
+            "BBQ by c.einstein.mp3"
+        ];
+
+        const audio = document.getElementById("drawingMusic");
+        let currentTrack = 0;
+
+        function playTrack(index) {
+            currentTrack = index;
+            audio.src = playlist[currentTrack];
+            audio.load();
+
+            audio.play().catch(() => {
+                // Wait for a user interaction if autoplay is blocked.
+            });
+        }
+
+        // Automatically continue through the playlist.
+        audio.addEventListener("ended", () => {
+            const nextTrack = (currentTrack + 1) % playlist.length;
+            playTrack(nextTrack);
+        });
+
+        // Attempt autoplay when the page opens.
+        playTrack(0);
+
+        // Fallback for browsers that block autoplay.
+        function startMusicIfStopped() {
+            if (audio.paused) {
+                audio.play().catch(() => {});
+            }
+        }
+
+        document.addEventListener("pointerdown", startMusicIfStopped);
+        document.addEventListener("keydown", startMusicIfStopped);
 
     </script>
 
-
 </body>
-
 </html>

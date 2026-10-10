@@ -59,12 +59,12 @@
             border: 1px solid rgba(183, 122, 203, 0.4);
             background: rgba(255, 255, 255, 0.12);
             color: inherit;
-            text-decoration: none;
             cursor: pointer;
             padding: 14px;
             text-align: center;
             transition: transform 0.2s ease, opacity 0.2s ease;
             min-width: 0;
+            font: inherit;
         }
 
         .album-card:hover {
@@ -81,12 +81,6 @@
             border: 1px solid rgba(183, 122, 203, 0.25);
             margin-bottom: 16px;
             font-size: 38px;
-        }
-
-        .album-cover img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
         }
 
         .album-title {
@@ -249,23 +243,17 @@
             <div class="album-grid">
 
                 <button class="album-card" type="button" data-album="me">
-                    <div class="album-cover">
-                        <span>♡</span>
-                    </div>
+                    <div class="album-cover"><span>♡</span></div>
                     <div class="album-title">ME</div>
                 </button>
 
                 <button class="album-card" type="button" data-album="itsok">
-                    <div class="album-cover">
-                        <span>☁</span>
-                    </div>
+                    <div class="album-cover"><span>☁</span></div>
                     <div class="album-title">IT'S OK NOT TO BE OK</div>
                 </button>
 
                 <button class="album-card" type="button" data-album="beauty">
-                    <div class="album-cover">
-                        <span>✿</span>
-                    </div>
+                    <div class="album-cover"><span>✿</span></div>
                     <div class="album-title">BEAUTY</div>
                 </button>
 
@@ -284,7 +272,7 @@
 
             <h1 id="albumHeading" class="album-view-heading"></h1>
 
-            <!-- MUSIC CONTROLS: NO TRACK NAMES OR PREVIOUS BUTTON -->
+            <!-- MUSIC: COUNTER AND NEXT BUTTON ONLY -->
             <div id="albumMusicControls" class="album-controls" hidden>
                 <span id="songCounter" class="song-counter">1 / 12</span>
                 <button id="nextSong" class="next-song" type="button">
@@ -305,10 +293,9 @@
     </div>
 
     <script>
-        // --------------------------------------------------
+        // ================================================
         // BACKGROUND MUSIC
-        // Uses the same saved position as index.html.
-        // --------------------------------------------------
+        // ================================================
 
         const musicKey = "birthdayBackgroundMusicTime";
         const backgroundMusic = new Audio("background.mp3");
@@ -356,7 +343,10 @@
             backgroundMusic.load();
         }
 
-        backgroundMusic.addEventListener("timeupdate", saveBackgroundPosition);
+        backgroundMusic.addEventListener(
+            "timeupdate",
+            saveBackgroundPosition
+        );
 
         window.addEventListener("pagehide", saveBackgroundPosition);
 
@@ -365,9 +355,9 @@
             backgroundMusic.pause();
         }
 
-        // --------------------------------------------------
-        // ALBUMS AND PLAYLISTS
-        // --------------------------------------------------
+        // ================================================
+        // ALBUM DATA
+        // ================================================
 
         const albums = {
             me: {
@@ -413,30 +403,79 @@
 
             itsok: {
                 title: "IT'S OK NOT TO BE OK",
-                photos: [],
-                playlist: []
+
+                photos: [
+                    { src: "itsok1.jpg", note: "(note here)" },
+                    { src: "itsok2.jpg", note: "(note here)" },
+                    { src: "itsok3.jpg", note: "(note here)" },
+                    { src: "itsok4.jpg", note: "(note here)" },
+                    { src: "itsok5.jpg", note: "(note here)" },
+                    { src: "itsok6.jpg", note: "(note here)" },
+                    { src: "itsok7.jpg", note: "(note here)" },
+                    { src: "itsok8.jpg", note: "(note here)" },
+                    { src: "itsok9.jpg", note: "(note here)" },
+                    { src: "itsok10.jpg", note: "(note here)" },
+                    { src: "itsok11.jpg", note: "(note here)" }
+                ],
+
+                playlist: [
+                    "The Smashing Pumpkins - Luna [NIGHTCORE].mp3",
+                    "MCR - Helena.mp3",
+                    "MCR - Its Not a Fashion Statement Its a Deathwish.mp3",
+                    "MCR - Im Not Okay I Promise.mp3",
+                    "Shoebox Memories By Better Luck next time.mp3",
+                    "MCR - Drowning Lessons.mp3"
+                ]
             },
 
             beauty: {
                 title: "BEAUTY",
-                photos: [],
-                playlist: []
+
+                photos: [
+                    { src: "beauty1.jpg", note: "(note here)" },
+                    { src: "beauty2.jpg", note: "(note here)" },
+                    { src: "beauty3.jpg", note: "(note here)" },
+                    { src: "beauty4.jpg", note: "(note here)" },
+                    { src: "beauty5.jpg", note: "(note here)" },
+                    { src: "beauty6.jpg", note: "(note here)" },
+                    { src: "beauty7.jpg", note: "(note here)" },
+                    { src: "beauty8.jpg", note: "(note here)" },
+                    { src: "beauty9.jpg", note: "(note here)" },
+                    { src: "beauty10.jpg", note: "(note here)" },
+                    { src: "beauty11.jpg", note: "(note here)" },
+                    { src: "beauty12.jpg", note: "(note here)" },
+                    { src: "beauty13.jpg", note: "(note here)" },
+                    { src: "beauty14.jpg", note: "(note here)" },
+                    { src: "beauty15.jpg", note: "(note here)" },
+                    { src: "beauty16.jpg", note: "(note here)" },
+                    { src: "beauty17.jpg", note: "(note here)" }
+                ],
+
+                playlist: [
+                    "Aphex Twin - Iz Us [NIGHTCORE].mp3",
+                    "slow sedation - neptune (sped up).mp3",
+                    "doraemon shield.mp3"
+                ]
             }
         };
+
+        // ================================================
+        // ALBUM RENDERING AND PLAYBACK
+        // ================================================
 
         const albumHub = document.getElementById("albumHub");
         const albumView = document.getElementById("albumView");
         const albumHeading = document.getElementById("albumHeading");
         const diaryContainer = document.getElementById("diaryContainer");
-        const albumMusicControls = document.getElementById("albumMusicControls");
+        const albumMusicControls =
+            document.getElementById("albumMusicControls");
         const songCounter = document.getElementById("songCounter");
         const nextSongButton = document.getElementById("nextSong");
 
         let currentAlbum = null;
         let currentTrackIndex = 0;
-        let albumMusic = new Audio();
-        let albumMusicActive = false;
 
+        const albumMusic = new Audio();
         albumMusic.preload = "auto";
 
         function updateSongCounter() {
@@ -458,7 +497,6 @@
                 return;
             }
 
-            albumMusicActive = true;
             albumMusic.src = playlist[currentTrackIndex];
             albumMusic.load();
 
@@ -466,7 +504,7 @@
             albumMusicControls.hidden = false;
 
             albumMusic.play().catch(() => {
-                // If playback is blocked, the next button can retry.
+                // A click on "next" can retry if playback is blocked.
             });
         }
 
@@ -475,12 +513,13 @@
 
             if (!playlist.length) return;
 
-            currentTrackIndex = (currentTrackIndex + 1) % playlist.length;
+            currentTrackIndex =
+                (currentTrackIndex + 1) % playlist.length;
+
             playCurrentTrack();
         }
 
         albumMusic.addEventListener("ended", nextTrack);
-
         nextSongButton.addEventListener("click", nextTrack);
 
         function renderAlbum(key) {
@@ -491,7 +530,8 @@
             if (!album.photos.length) {
                 const emptyMessage = document.createElement("p");
                 emptyMessage.className = "empty-album";
-                emptyMessage.textContent = "photos and notes coming soon ♡";
+                emptyMessage.textContent =
+                    "photos and notes coming soon ♡";
                 diaryContainer.appendChild(emptyMessage);
                 return;
             }
@@ -516,6 +556,7 @@
 
                 entry.appendChild(image);
                 entry.appendChild(note);
+
                 diaryContainer.appendChild(entry);
             });
         }
@@ -532,15 +573,7 @@
             albumHeading.textContent = albums[key].title;
 
             renderAlbum(key);
-
-            if (albums[key].playlist.length) {
-                playCurrentTrack();
-            } else {
-                albumMusicActive = false;
-                albumMusic.pause();
-                albumMusic.removeAttribute("src");
-                albumMusicControls.hidden = true;
-            }
+            playCurrentTrack();
 
             window.scrollTo(0, 0);
         }
@@ -551,7 +584,6 @@
             albumMusic.pause();
             albumMusic.removeAttribute("src");
             albumMusic.load();
-            albumMusicActive = false;
 
             currentAlbum = null;
 
@@ -574,11 +606,10 @@
             returnToHub
         );
 
-        // --------------------------------------------------
+        // ================================================
         // PHOTO LIGHTBOX
-        // Click the photo to open; click outside or press
-        // Escape to close.
-        // --------------------------------------------------
+        // Click a photo to zoom; click outside or Escape to close.
+        // ================================================
 
         const photoLightbox = document.getElementById("photoLightbox");
         const lightboxImage = document.getElementById("lightboxImage");
@@ -596,7 +627,10 @@
         }
 
         photoLightbox.addEventListener("click", (event) => {
-            if (event.target === photoLightbox || event.target === lightboxImage) {
+            if (
+                event.target === photoLightbox ||
+                event.target === lightboxImage
+            ) {
                 closeLightbox();
             }
         });
@@ -607,21 +641,22 @@
             }
         });
 
-        // --------------------------------------------------
-        // NAVIGATION
-        // --------------------------------------------------
+        // ================================================
+        // HOME NAVIGATION
+        // ================================================
 
-        document.getElementById("homeLink").addEventListener("click", () => {
-            saveBackgroundPosition();
-        });
+        document.getElementById("homeLink").addEventListener(
+            "click",
+            saveBackgroundPosition
+        );
 
-        document.getElementById("albumHomeLink").addEventListener("click", () => {
-            saveBackgroundPosition();
-        });
+        document.getElementById("albumHomeLink").addEventListener(
+            "click",
+            saveBackgroundPosition
+        );
 
-        // Start the background track when the gallery hub opens.
+        // Start the background track when the gallery loads.
         startBackgroundMusic();
-
     </script>
 
 </body>

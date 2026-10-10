@@ -131,6 +131,7 @@
             text-align: center;
         }
 
+        /* ME album: keep photos centered */
         .diary-entry {
             margin: 0 auto 38px;
             text-align: center;
@@ -157,6 +158,33 @@
             overflow-wrap: anywhere;
         }
 
+        /* Blog layout: IT'S OK NOT TO BE OK + BEAUTY */
+        .album-view.blog-layout {
+            max-width: 1000px;
+        }
+
+        .blog-layout .diary-entry {
+            width: 100%;
+            max-width: 680px;
+            margin: 0 0 55px;
+            text-align: left;
+        }
+
+        .blog-layout .diary-photo {
+            width: 100%;
+            max-width: 100%;
+            height: auto;
+            max-height: none;
+            margin: 0;
+            object-fit: contain;
+        }
+
+        .blog-layout .diary-note {
+            margin: 12px 0 0;
+            max-width: 100%;
+            text-align: left;
+        }
+
         .empty-album {
             text-align: center;
             opacity: 0.75;
@@ -164,17 +192,21 @@
             line-height: 1.8;
         }
 
+        /* Fullscreen photo viewer */
         .photo-lightbox {
             position: fixed;
             inset: 0;
             z-index: 9999;
-            background: rgba(10, 8, 13, 0.92);
+            background: rgba(10, 8, 13, 0.94);
             display: none;
             align-items: center;
             justify-content: center;
             padding: 24px;
             box-sizing: border-box;
+            overflow: hidden;
             cursor: zoom-out;
+            overscroll-behavior: contain;
+            touch-action: none;
         }
 
         .photo-lightbox.active {
@@ -185,8 +217,15 @@
             display: block;
             max-width: 95vw;
             max-height: 92vh;
+            width: auto;
+            height: auto;
             object-fit: contain;
-            cursor: zoom-out;
+            cursor: crosshair;
+            transform: scale(1);
+            transform-origin: center center;
+            user-select: none;
+            -webkit-user-drag: none;
+            will-change: transform;
         }
 
         @media (max-width: 650px) {
@@ -211,6 +250,18 @@
             .diary-photo {
                 max-height: 70vh;
                 max-width: 100%;
+            }
+
+            .blog-layout .diary-entry {
+                width: 100%;
+                max-width: 100%;
+                margin-bottom: 42px;
+            }
+
+            .blog-layout .diary-photo {
+                width: 100%;
+                max-width: 100%;
+                max-height: none;
             }
 
             .gallery-heading {
@@ -288,7 +339,13 @@
     </main>
 
     <!-- FULLSCREEN PHOTO VIEWER -->
-    <div id="photoLightbox" class="photo-lightbox" aria-hidden="true">
+    <div
+        id="photoLightbox"
+        class="photo-lightbox"
+        aria-hidden="true"
+        role="dialog"
+        aria-label="Photo zoom viewer"
+    >
         <img id="lightboxImage" src="" alt="">
     </div>
 
@@ -357,6 +414,7 @@
 
         // ================================================
         // ALBUM DATA
+        // Photo filenames and playlist order preserved.
         // ================================================
 
         const albums = {
@@ -504,7 +562,7 @@
             albumMusicControls.hidden = false;
 
             albumMusic.play().catch(() => {
-                // A click on "next" can retry if playback is blocked.
+                // Pressing next can retry if playback is blocked.
             });
         }
 
@@ -526,6 +584,9 @@
             const album = albums[key];
 
             diaryContainer.innerHTML = "";
+
+            // Blog layout only for these two albums.
+            albumView.classList.toggle("blog-layout", key !== "me");
 
             if (!album.photos.length) {
                 const emptyMessage = document.createElement("p");
@@ -587,7 +648,7 @@
 
             currentAlbum = null;
 
-            albumView.classList.remove("active");
+            albumView.classList.remove("active", "blog-layout");
             albumHub.style.display = "block";
 
             startBackgroundMusic();
@@ -607,30 +668,132 @@
         );
 
         // ================================================
-        // PHOTO LIGHTBOX
-        // Click a photo to zoom; click outside or Escape to close.
+        // PHOTO LIGHTBOX + WHEEL ZOOM
+        // Lock the page while open.
+        // Wheel zooms the photo, never the page.
+        // Click outside or Escape to close.
         // ================================================
 
         const photoLightbox = document.getElementById("photoLightbox");
         const lightboxImage = document.getElementById("lightboxImage");
 
+        let zoomLevel = 1;
+        const minZoom = 1;
+        const maxZoom = 6;
+        const zoomStep = 1.15;
+
+        let lockedScrollY = 0;
+        let pageWasLocked = false;
+        let previousBodyStyles = {};
+
+        function lockPageScroll() {
+            if (pageWasLocked) return;
+
+            lockedScrollY = window.scrollY;
+
+            previousBodyStyles = {
+                position: document.body.style.position,
+                top: document.body.style.top,
+                left: document.body.style.left,
+                right: document.body.style.right,
+                width: document.body.style.width,
+                overflow: document.body.style.overflow
+            };
+
+            document.body.style.position = "fixed";
+            document.body.style.top = `-${lockedScrollY}px`;
+            document.body.style.left = "0";
+            document.body.style.right = "0";
+            document.body.style.width = "100%";
+            document.body.style.overflow = "hidden";
+
+            pageWasLocked = true;
+        }
+
+        function unlockPageScroll() {
+            if (!pageWasLocked) return;
+
+            document.body.style.position = previousBodyStyles.position;
+            document.body.style.top = previousBodyStyles.top;
+            document.body.style.left = previousBodyStyles.left;
+            document.body.style.right = previousBodyStyles.right;
+            document.body.style.width = previousBodyStyles.width;
+            document.body.style.overflow = previousBodyStyles.overflow;
+
+            pageWasLocked = false;
+
+            // Restore the exact position from before opening the photo.
+            window.scrollTo(0, lockedScrollY);
+        }
+
+        function resetZoom() {
+            zoomLevel = 1;
+            lightboxImage.style.transform = "scale(1)";
+            lightboxImage.style.transformOrigin = "center center";
+        }
+
         function openLightbox(src) {
+            lockedScrollY = window.scrollY;
+
             lightboxImage.src = src;
+            resetZoom();
+
             photoLightbox.classList.add("active");
             photoLightbox.setAttribute("aria-hidden", "false");
+
+            lockPageScroll();
         }
 
         function closeLightbox() {
+            if (!photoLightbox.classList.contains("active")) return;
+
             photoLightbox.classList.remove("active");
             photoLightbox.setAttribute("aria-hidden", "true");
+
             lightboxImage.src = "";
+            resetZoom();
+
+            unlockPageScroll();
         }
 
+        // Wheel zooms in/out; preventDefault stops page scrolling.
+        photoLightbox.addEventListener("wheel", (event) => {
+            if (!photoLightbox.classList.contains("active")) return;
+
+            event.preventDefault();
+
+            const rect = lightboxImage.getBoundingClientRect();
+
+            // Set zoom origin around the mouse position.
+            if (rect.width > 0 && rect.height > 0) {
+                const x = Math.max(
+                    0,
+                    Math.min(100, ((event.clientX - rect.left) / rect.width) * 100)
+                );
+
+                const y = Math.max(
+                    0,
+                    Math.min(100, ((event.clientY - rect.top) / rect.height) * 100)
+                );
+
+                lightboxImage.style.transformOrigin = `${x}% ${y}%`;
+            }
+
+            const multiplier = event.deltaY < 0
+                ? zoomStep
+                : 1 / zoomStep;
+
+            zoomLevel = Math.max(
+                minZoom,
+                Math.min(maxZoom, zoomLevel * multiplier)
+            );
+
+            lightboxImage.style.transform = `scale(${zoomLevel})`;
+        }, { passive: false });
+
+        // Only clicking the dark area closes the photo.
         photoLightbox.addEventListener("click", (event) => {
-            if (
-                event.target === photoLightbox ||
-                event.target === lightboxImage
-            ) {
+            if (event.target === photoLightbox) {
                 closeLightbox();
             }
         });
@@ -655,7 +818,7 @@
             saveBackgroundPosition
         );
 
-        // Start the background track when the gallery loads.
+        // Start background music when the gallery loads.
         startBackgroundMusic();
     </script>
 
